@@ -1,0 +1,4 @@
+ 
+przykładowa podstrona portalu
+
+<?=$zmienna?>
