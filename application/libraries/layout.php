@@ -33,6 +33,9 @@ class Layout{
 	private $CI;
 	private $JSarray = array();
 	private $CSSarray = array();
+	private $CSSs = array();
+	private $JSs = array();
+	
 	private $loaded_layouts;
 	private $layoutname = "default";
 	private $layout = null;
@@ -63,9 +66,10 @@ class Layout{
 	 * 
 	 * @param srting
 	 */
-	function addJS($fname){
+	 
+	private function _createJS($fname){
 		$path = base_url()."static/js/".$fname.".js";
-		$this->JSarray[] = "<script type='text/javascript' src='".$path."'></script>\n";
+		$this->JSs[] = "<script type='text/javascript' src='".$path."'></script>\n";
 	}
 	/**
 	 * dodaj Style
@@ -75,13 +79,24 @@ class Layout{
 	 *  
 	 * @param srting
 	 */
-	function addCSS($fname){
+	private function _createCSS($fname){
 		$path = base_url()."static/css/".$fname.".css";
-		$this->CSSarray[] = "<link rel='stylesheet' type='text/css' media='all' href='".$path."' />";
+		$this->CSSs[] = "<link rel='stylesheet' type='text/css' media='all' href='".$path."' />";
 	}
+	
+	/**
+	 * setPageTitle
+	 * ustawia tytuł strony w pasku adresu
+	 * @param string - tytuł
+	 */
 	function setPageTitle($string){
 		$this->pagetitle = $string;
 	}
+	/**
+	 * setSubpageTitle
+	 * ustawia tytuł podstrony w pasku adresu "[tytuł strony] - [tytul podstrony]"
+	 * @param string - tytuł podstrony
+	 */
 	function setSubpageTitle($string){
 		$this->subpagetitle = $string;
 	}
@@ -122,8 +137,13 @@ class Layout{
 		$data = $this->layout->init();
 		$data[$this->layout->contentVar()] = $this->CI->load->view($path,$udata,true);
 		$data2['body'] = $this->CI->load->view('layouts/'.$this->layout->viewName(),$data,true);
-		$data2['style_src'] = implode($this->CSSarray);
-		$data2['scripts'] = implode($this->JSarray);
+		$data2['style_src'] = '';
+		$data2['scripts'] = '';
+		foreach($this->JSarray as $js)
+			$data2['scripts'] .= addJS($js);
+		foreach($this->CSSarray as $css)
+			$data2['scripts'] .= addCSS($css);  
+		
 		$data2['pagetitle'] = $this->pagetitle;
 		$data2['subpagetitle'] = $this->subpagetitle;
 		return $this->CI->load->view('main',$data2,$ret);

@@ -1,16 +1,18 @@
 <?
-/** przygładowy/domyślny Layout
- * 
+/** 
+ * layout strony logowania
  * @author Mateusz Russak 
  */
 
-class default_layout implements MY_Layout{
+class intro_layout implements MY_Layout{
+	
 	private $CI;
 	/**
 	 * konstruktor 
 	 */
 	function __construct(){
 		$this->CI =& get_instance();
+	
 	}
 	/**
 	 * init
@@ -18,7 +20,6 @@ class default_layout implements MY_Layout{
 	 */
 	function init(){
 		$data['content'] = '';
-		$data['menubar'] = $this->CI->load->view('menubar','',true);
 		return $data;
 	}
 	/** 
@@ -35,11 +36,11 @@ class default_layout implements MY_Layout{
 	 * zostanie wypełniona przy wywołaniu $this->layout->view()
 	 */
 	function viewName(){
-		return "default";
+		return "intro";
 	}
 	
 	function css(){
-		return array('default');
+		return array('intro');
 	}
 }
 ?>

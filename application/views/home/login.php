@@ -1,7 +1,7 @@
 <div class="login">
 <h2>Logowanie</h2>
 	
-<?=form_open('user/login');?>
+<?=form_open('login');?>
 <?=form_label("Email:","email");?><br />
 <?=form_input(array('name'=>'email' , 'value' => $this->session->flashdata('email')));?><br />
 <?=form_label("Hasło:","password");?><br />

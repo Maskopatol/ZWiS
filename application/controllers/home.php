@@ -20,10 +20,10 @@ class Home extends CI_Controller {
 			if($this->auth->login($email,$pass)){
 				redirect("/home/","location");
 			}else{
-				$this->load->view('home/login');
+				$this->layout->view('home/login');
 			}
 		}else{
-			$this->load->view('home/login');
+			$this->layout->view('home/login');
 		}
 	}
 }
