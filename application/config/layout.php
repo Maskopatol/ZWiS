@@ -20,4 +20,13 @@ $config["autoload_css"] = array();
 | domyślny Layout 
 */
 $config["default_layout"] = 'default';
+
+/*
+|--------------------------------------------------------------------------
+| Page Title
+|--------------------------------------------------------------------------
+| domyślny tytuł strony wyświetlający się w pasku tytułu w przeglądarce 
+*/
+
+$config["page_title"] = 'ZWiS';
 ?> 

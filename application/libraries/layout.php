@@ -37,6 +37,9 @@ class Layout{
 	private $layoutname = "default";
 	private $layout = null;
 	
+	private $pagetitle = null;
+	private $subpagetitle =null;
+	
 	/**
 	 * Konstruktor
 	 */
@@ -48,8 +51,9 @@ class Layout{
 			$this->CSSarray = $config["autoload_css"];
 			$this->layoutname = $config["default_layout"];
 		}
-		
-		$this->setLayout($this->layoutname);
+		if(isset($config["page_title"]))
+			$this->pagetitle = $config["page_title"];
+		$this->set($this->layoutname);
 	}
 	/**
 	 * dodaj JavaScript
@@ -60,7 +64,7 @@ class Layout{
 	 * @param srting
 	 */
 	function addJS($fname){
-		$path = baseUrl()."static/js/".$fname.".js";
+		$path = base_url()."static/js/".$fname.".js";
 		$this->JSarray[] = "<script type='text/javascript' src='".$path."'></script>\n";
 	}
 	/**
@@ -72,9 +76,16 @@ class Layout{
 	 * @param srting
 	 */
 	function addCSS($fname){
-		$path = baseUrl()."static/css/".$fname.".css";
+		$path = base_url()."static/css/".$fname.".css";
 		$this->CSSarray[] = "<link rel='stylesheet' type='text/css' media='all' href='".$path."' />";
 	}
+	function setPageTitle($string){
+		$this->pagetitle = $string;
+	}
+	function setSubpageTitle($string){
+		$this->subpagetitle = $string;
+	}
+	
 	/**
 	 * ustaw Layout
 	 * 
@@ -107,12 +118,14 @@ class Layout{
 	 * @param bool czy wynik działania funkcji ma zostać zwrócony (true) czy wypisany (false) 
 	 * 
 	 */
-	function view($path , $data = '', $ret = false){
+	function view($path , $udata = '', $ret = false){
 		$data = $this->layout->init();
-		$data[$this->layout->contentVar()] = $this->CI->load->view($path,$data,true);
+		$data[$this->layout->contentVar()] = $this->CI->load->view($path,$udata,true);
 		$data2['body'] = $this->CI->load->view('layouts/'.$this->layout->viewName(),$data,true);
 		$data2['style_src'] = implode($this->CSSarray);
 		$data2['scripts'] = implode($this->JSarray);
+		$data2['pagetitle'] = $this->pagetitle;
+		$data2['subpagetitle'] = $this->subpagetitle;
 		return $this->CI->load->view('main',$data2,$ret);
 	}
 	

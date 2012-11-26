@@ -19,6 +19,12 @@ class Example extends CI_Controller {
 		//dodawanie plików js
 		$this->layout->addJS('jquery.js');
 		
+		//ustawienie tytułu strony (domyślna wartość w pliku application/config/layout.php)
+		//$this->layout->setPageTitle("ZWiS");
+		
+		//ustawienie podtytułu strony
+		$this->layout->setSubpageTitle("Strona przykładowa");
+		
 		
 		//wyświetlenie widoku example/index
 		$data['zmienna'] = "jakiś tekst zmiennej";
@@ -26,5 +32,3 @@ class Example extends CI_Controller {
 	}
 }
 
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */ 
