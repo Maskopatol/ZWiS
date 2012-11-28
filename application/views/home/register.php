@@ -9,4 +9,6 @@
 <?=form_password(array('name'=>'password_confirmation'));?><br /><br />
 <?=form_submit('submit',"Rejestruj");?><br />
 <?=form_close();?>
+<br />
+<?=anchor("login","Zaloguj się");?>
 </div>

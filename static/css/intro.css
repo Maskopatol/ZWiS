@@ -1,7 +1,30 @@
+body{
+	background-color: #91A7DB;
+	
+}
 #all{
+	
 	margin: 0px auto;
+	margin-top:70px;
+	width:400px;
+	background-color:white;
+	border: 1px solid #344878;
+	border-radius:10px;
 }
 #content{
-	width:100%;
-	background-color:gray;
+	width:300px;
+	margin:10px 50px 10px 50px;
+	
+}
+#content input{
+	border-radius:7px;
+	border:1px solid black;
+	margin:5px 0px 5px 0px;
+	padding:3px;
+	width:300px;
+}
+
+#content input[type="submit"]{
+	float:right;
+	width:100px;
 }

@@ -32,6 +32,11 @@ class Home extends CI_Controller {
 			$this->layout->view('home/login');
 		}
 	}
+	public function logout(){
+		$this->auth->logout();
+		redirect("/home/login","location");
+	}
+	
 	public function register(){
 		$this->load->helper('form');
 		$this->load->library("auth");

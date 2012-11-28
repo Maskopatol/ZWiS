@@ -1,3 +1,3 @@
 <div class="menu-top">
-	Ściana | Wiadomości | Ustawienia | Znajomi | Uczelnie
+	<?=anchor("user/","Ściana");?> | Wiadomości | Ustawienia | Znajomi | Uczelnie | <?=anchor("logout/","Wyloguj");?>
 </div>

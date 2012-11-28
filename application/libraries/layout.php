@@ -77,7 +77,7 @@ class Layout{
 	 
 	private function _createJS($fname){
 		$path = base_url()."static/js/".$fname.".js";
-		$this->JSs[] = "<script type='text/javascript' src='".$path."'></script>\n";
+		return "<script type='text/javascript' src='".$path."'></script>\n";
 	}
 	/**
 	 * dodaj Style
@@ -89,7 +89,7 @@ class Layout{
 	 */
 	private function _createCSS($fname){
 		$path = base_url()."static/css/".$fname.".css";
-		$this->CSSs[] = "<link rel='stylesheet' type='text/css' media='all' href='".$path."' />";
+		return "<link rel='stylesheet' type='text/css' media='all' href='".$path."' />";
 	}
 	
 	/**
@@ -159,6 +159,7 @@ class Layout{
 		
 		$data2['pagetitle'] = $this->pagetitle;
 		$data2['subpagetitle'] = $this->subpagetitle;
+
 		return $this->CI->load->view('main',$data2,$ret);
 	}
 	
