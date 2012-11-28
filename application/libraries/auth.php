@@ -47,6 +47,19 @@ class auth{
 			return false;
 		}
 	}
+	/**
+	 * uid
+	 * zwraca id użytkownika , jak użytkownik nie jest zalogowany - null
+	 * @return int 
+	 */
+	public function uid(){
+		$uid = $this->CI->session->userdata('user_id');
+		if(!empty($uid)){
+			return $uid;
+		}else{
+			return null;
+		}
+	}
 	
 	/**
 	 * login
