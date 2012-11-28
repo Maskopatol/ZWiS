@@ -50,6 +50,29 @@ CREATE TABLE IF NOT EXISTS `University` (
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB;
 
+-- -----------------------------------------------------
+-- Table `zwis`.`comments`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `comments` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `post_id` int(10) unsigned NOT NULL,
+  `id_user` int(10) unsigned NOT NULL,
+  `comment_content` text NOT NULL,
+  `comment_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
+
+-- -----------------------------------------------------
+-- Table `zwis`.`posts`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `posts` (
+  `post_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_user` int(10) unsigned NOT NULL,
+  `post_content` text NOT NULL,
+  `post_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_com_date` datetime NOT NULL,
+  PRIMARY KEY (`post_id`)
+) ENGINE=InnoDB;
 
 
 
