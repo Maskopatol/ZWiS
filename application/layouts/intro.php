@@ -42,5 +42,8 @@ class intro_layout implements MY_Layout{
 	function css(){
 		return array('intro');
 	}
+	function js(){
+		return array();
+	}
 }
 ?>

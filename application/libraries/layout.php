@@ -19,6 +19,14 @@ interface MY_Layout{
 	* zwraca nazwę widoku powiązanego z layoutem - folder application/views/layouts/ 
 	*/
 	function viewName();
+	/** css
+	* zwraca tablicę z nazwami plików css które mają być domyślnie załadowane do layoutu
+	*/
+	function css();
+	/** js
+	* zwraca tablicę z nazwami plików js które mają być domyślnie załadowane do layoutu
+	*/
+	function js();
 }
 
 
@@ -140,9 +148,14 @@ class Layout{
 		$data2['style_src'] = '';
 		$data2['scripts'] = '';
 		foreach($this->JSarray as $js)
-			$data2['scripts'] .= addJS($js);
+			$data2['scripts'] .= $this->_createJS($js);
 		foreach($this->CSSarray as $css)
-			$data2['scripts'] .= addCSS($css);  
+			$data2['style_src'] .= $this->_createCSS($css);  
+		
+		foreach($this->layout->js() as $js)
+			$data2['scripts'] .= $this->_createJS($js);
+		foreach($this->layout->css() as $css)
+			$data2['style_src'] .= $this->_createCSS($css);  
 		
 		$data2['pagetitle'] = $this->pagetitle;
 		$data2['subpagetitle'] = $this->subpagetitle;

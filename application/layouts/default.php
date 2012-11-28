@@ -41,5 +41,9 @@ class default_layout implements MY_Layout{
 	function css(){
 		return array('default');
 	}
+
+	function js(){
+		return array();
+	}
 }
 ?>
