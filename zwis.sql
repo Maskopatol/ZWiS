@@ -38,6 +38,20 @@ ENGINE = InnoDB;
 
 
 
+-- -----------------------------------------------------
+-- Table `mydb`.`Univerity`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `University` (
+  `name` varchar(128) NOT NULL,
+  `address` varchar(128) NOT NULL,
+  `established` int(4) NOT NULL,
+  `students` int(5) NOT NULL,
+  `home_page` varchar(128) NOT NULL DEFAULT 'http://www.',
+  PRIMARY KEY (`nazwa`)
+) ENGINE=InnoDB
+
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
