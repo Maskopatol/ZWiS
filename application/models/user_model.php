@@ -17,7 +17,7 @@ class User_model extends CI_Model {
 		$this->db->like('name',$string);
 		$this->db->or_like('surname',$string);
 		$this->db->or_like('email',$string);
-		$q = $this->db->get('Users');
+		$q = $this->db->get('users');
 
 		if($this->db->_error_number()!=0){
 			return NULL;
@@ -30,7 +30,7 @@ class User_model extends CI_Model {
 	 * @return array
 	 */
 	function all(){
-		$query = $this->db->get('Users');
+		$query = $this->db->get('users');
 		if($this->db->_error_number()!=0){
 			return NULL;
 		}
@@ -45,7 +45,7 @@ class User_model extends CI_Model {
 	function get($item){
 		$this->db->where('id_user',$item);
 		$this->db->or_where('email',$item);
-		$query = $this->db->get('Users');
+		$query = $this->db->get('users');
 		
 		if($this->db->_error_number()!=0){
 			return NULL;
@@ -69,7 +69,7 @@ class User_model extends CI_Model {
 	 * @return bool
 	 */
 	function create($data){	
-		$this->db->insert('Users',$data);
+		$this->db->insert('users',$data);
 		
 		if($this->db->_error_number()!=0)
 			return false;
@@ -97,7 +97,7 @@ class User_model extends CI_Model {
 	 */
 	function update($id , $data){
 		$this->db->where('id_user', $id);
-		$this->db->update('Users', $data); 
+		$this->db->update('users', $data); 
 	//	echo $this->db->last_query(); exit();
 		if($this->db->_error_number()!=0){
 			return false;
@@ -113,7 +113,7 @@ class User_model extends CI_Model {
 	 */
 	
 	function delete($id){
-		$this->db->delete('Users', array('id_user' => $id)); 
+		$this->db->delete('users', array('id_user' => $id)); 
 		if($this->db->_error_number()!=0){
 			return false;
 		}

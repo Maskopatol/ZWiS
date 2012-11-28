@@ -8,7 +8,7 @@ USE `zwis` ;
 -- -----------------------------------------------------
 -- Table `zwis`.`Users`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `Users` (
+CREATE  TABLE IF NOT EXISTS `users` (
   `id_user` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `email` VARCHAR(64) NOT NULL ,
   `password` VARCHAR(64) NOT NULL ,
@@ -23,7 +23,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `zwis`.`Locations`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `Locations` (
+CREATE  TABLE IF NOT EXISTS `locations` (
   `id_user` INT UNSIGNED NOT NULL ,
   `add_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `latitude` FLOAT NOT NULL,
@@ -41,7 +41,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Univerity`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `University` (
+CREATE TABLE IF NOT EXISTS `university` (
   `name` varchar(128) NOT NULL,
   `address` varchar(128) NOT NULL,
   `established` int(4) NOT NULL,
