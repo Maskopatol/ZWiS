@@ -73,6 +73,7 @@ class User_model extends CI_Model {
 		
 		if($this->db->_error_number()!=0)
 			return false;
+		/*
 		$id = $this->db->insert_id();
 		if(!$this->post_model->createNewBoard($id)){
 			$this->db->delete('Users',array('id_user' => $id));
@@ -84,7 +85,7 @@ class User_model extends CI_Model {
 			$this->db->delete('Users',array('id_user' => $id));
 			return false;
 		}
-		
+		*/
 		return true;
 	}
 	/**

@@ -6,9 +6,9 @@ CREATE SCHEMA IF NOT EXISTS `zwis` DEFAULT CHARACTER SET utf8 COLLATE utf8_unico
 USE `zwis` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`Users`
+-- Table `zwis`.`Users`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `mydb`.`Users` (
+CREATE  TABLE IF NOT EXISTS `Users` (
   `id_user` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `email` VARCHAR(64) NOT NULL ,
   `password` VARCHAR(64) NOT NULL ,
@@ -17,13 +17,13 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`Users` (
   `registration_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   `photo` varchar(255) null,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) ,
-  PRIMARY KEY (`id_user`) ,
+  PRIMARY KEY (`id_user`))
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `mydb`.`Locations`
+-- Table `zwis`.`Locations`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `mydb`.`Locations` (
+CREATE  TABLE IF NOT EXISTS `Locations` (
   `id_user` INT UNSIGNED NOT NULL ,
   `add_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `latitude` FLOAT NOT NULL,
@@ -47,8 +47,8 @@ CREATE TABLE IF NOT EXISTS `University` (
   `established` int(4) NOT NULL,
   `students` int(5) NOT NULL,
   `home_page` varchar(128) NOT NULL DEFAULT 'http://www.',
-  PRIMARY KEY (`nazwa`)
-) ENGINE=InnoDB
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB;
 
 
 
