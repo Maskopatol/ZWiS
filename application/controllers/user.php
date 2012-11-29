@@ -69,11 +69,11 @@ class User extends CI_Controller {
 		
 		
 		$id_user = $this->uri->segment(3);
-		$data['heading'] = $this->user_model->get($id_user)['name'].' Wall';
-		$data['posts'] = $this->Post_model->get_user_posts($id_user);
 		if($id_user == $this->auth->uid()){
-			$this->layout->view('home/wall_view', $data);
-		}else{		
+			redirect("user");
+		}else{	
+			$data['heading'] = $this->user_model->get($id_user)['name'].' Wall';
+			$data['posts'] = $this->Post_model->get_user_posts($id_user);	
 			$data['id_user'] = $id_user;
 			$this->layout->view('home/friend_wall_view', $data);
 			}
