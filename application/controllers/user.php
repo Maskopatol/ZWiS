@@ -20,7 +20,7 @@ class User extends CI_Controller {
 		$data['heading'] = $this->user_model->get($id_user)['name'].' Wall';
 		$data['posts'] = $this->Post_model->get_user_posts($id_user);
 		
-		$this->load->view('home/wall_view', $data);
+		$this->layout->view('home/wall_view', $data);
 	}
 	/*
 		Dodawanie komentarza
@@ -57,7 +57,7 @@ class User extends CI_Controller {
 		
 		
 		
-		$this->load->view('home/wall_view', $data);
+		$this->layout->view('home/wall_view', $data);
 	
 	}
 	
