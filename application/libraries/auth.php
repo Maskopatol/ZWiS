@@ -87,8 +87,36 @@ class auth{
 	 * 
 	 * @return bool - czy logowanie powiodło się
 	 */
-	public function login_with_google(){
-		//TODO: logowanie za pomocą google oauth2
+	public function google_login(){
+		$this->CI->load->library("google");
+		$guser = $this->CI->google->login($_GET['code']);
+	
+		$user = $this->CI->user_model->get($guser['email']);
+		if($user == NULL){
+			print_r($guser);
+			$data['name'] = $guser['given_name'];
+			$data['surname'] = $guser['family_name'];
+			$data['email'] = $guser['email'];
+			$data['photo'] = $guser['picture'];
+			$data['password'] = sha1(uniqid());
+			if($this->CI->user_model->create($data)){
+				$id = $this->CI->user_model->new_user_id();
+				$this->CI->session->set_userdata('user_id' , $id);
+				$this->CI->session->set_userdata('logged_with_google' , true);
+				return true;
+			}
+		}else{
+			$this->CI->session->set_userdata('user_id' , $user['id_user']);
+			$this->CI->session->set_userdata('logged_with_google' , true);
+			return true;
+		}
+		return false;
+		
+	}
+	
+	public function google_login_link(){
+		$this->CI->load->library("google");
+		return $this->CI->google->authUrl();
 	}
 	
 	/**
@@ -96,7 +124,12 @@ class auth{
 	 * wylogowanie użytkownika
 	 */
 	public function logout(){
+		$this->CI->load->library("google");
 		$this->CI->session->unset_userdata('user_id');
+		if($this->CI->session->userdata('logged_with_google')){
+			$this->CI->google->logout();
+			$this->CI->session->unset_userdata('logged_with_google');
+		}
 	} 
 }
 ?>

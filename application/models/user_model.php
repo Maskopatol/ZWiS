@@ -6,7 +6,7 @@
  */
 
 class User_model extends CI_Model {
-	
+	private $new_user;
 	/**
 	 * find
 	 * słyży do wyszukiwania użytkowników w bazie danych, jako argument należy podać imie, nazwisko lub email.
@@ -73,9 +73,9 @@ class User_model extends CI_Model {
 		
 		if($this->db->_error_number()!=0)
 			return false;
-		/*
-		$id = $this->db->insert_id();
-		if(!$this->post_model->createNewBoard($id)){
+		
+		$this->new_user = $this->db->insert_id();
+		/*if(!$this->post_model->createNewBoard($id)){
 			$this->db->delete('Users',array('id_user' => $id));
 			return false;
 		}
@@ -88,6 +88,15 @@ class User_model extends CI_Model {
 		*/
 		return true;
 	}
+	/**
+	 * new_user_id
+	 * zwraca id nowododanego użytkownika
+	 * @return int
+	 */
+	function new_user_id(){
+		return $this->new_user;
+	}
+	
 	/**
 	 * update
 	 * zmienia dane użytkownika
@@ -120,5 +129,7 @@ class User_model extends CI_Model {
 		
 		return true;
 	}
+	
+	
 	
 }

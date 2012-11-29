@@ -11,4 +11,6 @@
 <?=form_close();?>
 <br />
 <?=anchor("register","Zarejestruj się");?>
+
+<?=anchor($this->auth->google_login_link(),"Zarejestruj się przez Google");?>
 </div>

@@ -18,7 +18,6 @@ class Home extends CI_Controller {
 	
 	public function login(){
 		$this->load->helper('form');
-		$this->load->library("auth");
 		$this->layout->set('intro');
 		$email = $this->input->post('email');
 		$pass = $this->input->post('password');
@@ -32,6 +31,15 @@ class Home extends CI_Controller {
 			$this->layout->view('home/login');
 		}
 	}
+	
+	public function glogin(){
+		if($this->auth->google_login()){
+			redirect("home/",'location');
+		}else{
+			redirect("login/",'location');
+		}
+	}
+	
 	public function logout(){
 		$this->auth->logout();
 		redirect("/home/login","location");
