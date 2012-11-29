@@ -74,6 +74,17 @@ CREATE TABLE IF NOT EXISTS `posts` (
   PRIMARY KEY (`post_id`)
 ) ENGINE=InnoDB;
 
+-- -----------------------------------------------------
+-- Table `zwis`.`messages`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `messages` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_user` int(10) unsigned NOT NULL,
+  `sender_id` int(10) unsigned NOT NULL,
+  `message_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `message_content` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

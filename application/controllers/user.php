@@ -22,6 +22,15 @@ class User extends CI_Controller {
 		
 		$this->layout->view('home/wall_view', $data);
 	}
+	
+	function inbox()
+	{
+		$id_user = $this->auth->uid();
+		$data['heading'] = $this->user_model->get($id_user)['name'].' Inbox';
+		$data['messages'] = $this->Message_model->get_messages($id_user);
+		
+		$this->layout->view('home/inbox_view', $data);
+	}
 	/*
 		Dodawanie komentarza
 	*/	
@@ -44,6 +53,14 @@ class User extends CI_Controller {
 		redirect($this->input->post('redirect'));			
 	
 	}
+	
+	function add_message()
+	{
+		$sender_id = $this->auth->uid();
+		$id_user = $this->input->post('id_user');
+		$this->Message_model->add_message($_POST['message_content'], $id_user, $sender_id);
+		redirect($this->input->post('redirect'));
+	}
 	/*
 		Funkcja generuje sciane znajomego
 	*/	
@@ -54,10 +71,12 @@ class User extends CI_Controller {
 		$id_user = $this->uri->segment(3);
 		$data['heading'] = $this->user_model->get($id_user)['name'].' Wall';
 		$data['posts'] = $this->Post_model->get_user_posts($id_user);
-		
-		
-		
-		$this->layout->view('home/wall_view', $data);
+		if($id_user == $this->auth->uid()){
+			$this->layout->view('home/wall_view', $data);
+		}else{		
+			$data['id_user'] = $id_user;
+			$this->layout->view('home/friend_wall_view', $data);
+			}
 	
 	}
 	
