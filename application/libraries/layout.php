@@ -74,7 +74,9 @@ class Layout{
 	 * 
 	 * @param srting
 	 */
-	 
+	 public function addJS($fname){
+		$this->JSarray[] = $fname;
+	}
 	private function _createJS($fname){
 		$path = base_url()."static/js/".$fname.".js";
 		return "<script type='text/javascript' src='".$path."'></script>\n";
@@ -87,6 +89,9 @@ class Layout{
 	 *  
 	 * @param srting
 	 */
+	public function addCSS($fname){
+		$this->CSSarray[] = $fname;
+	}
 	private function _createCSS($fname){
 		$path = base_url()."static/css/".$fname.".css";
 		return "<link rel='stylesheet' type='text/css' media='all' href='".$path."' />";

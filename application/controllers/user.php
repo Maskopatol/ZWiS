@@ -20,7 +20,7 @@ class User extends CI_Controller {
 		$data['heading'] = $this->user_model->get($id_user)['name'].' Wall';
 		$data['posts'] = $this->Post_model->get_user_posts($id_user);
 		
-		$this->layout->view('home/wall_view', $data);
+		$this->layout->view('user/wall_view', $data);
 	}
 	
 	function inbox()
@@ -29,7 +29,7 @@ class User extends CI_Controller {
 		$data['heading'] = $this->user_model->get($id_user)['name'].' Inbox';
 		$data['messages'] = $this->Message_model->get_messages($id_user);
 		
-		$this->layout->view('home/inbox_view', $data);
+		$this->layout->view('user/inbox_view', $data);
 	}
 	/*
 		Dodawanie komentarza
@@ -75,7 +75,7 @@ class User extends CI_Controller {
 			$data['heading'] = $this->user_model->get($id_user)['name'].' Wall';
 			$data['posts'] = $this->Post_model->get_user_posts($id_user);	
 			$data['id_user'] = $id_user;
-			$this->layout->view('home/friend_wall_view', $data);
+			$this->layout->view('user/friend_wall_view', $data);
 			}
 	
 	}

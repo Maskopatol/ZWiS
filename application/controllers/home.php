@@ -11,6 +11,7 @@ class Home extends CI_Controller {
 		if(!$this->auth->is_logged()){
 			redirect('login','location');
 		}else{
+			$this->layout->addCSS('userdata');
 			$data['user'] = $this->auth->user();
 			$this->layout->view("home/index",$data);
 		}
