@@ -64,11 +64,9 @@ class User extends CI_Controller {
 	/*
 		Funkcja generuje sciane znajomego
 	*/	
-	function info()
+	function info($id_user)
 	{
-		
-		
-		$id_user = $this->uri->segment(3);
+
 		if($id_user == $this->auth->uid()){
 			redirect("user");
 		}else{	
