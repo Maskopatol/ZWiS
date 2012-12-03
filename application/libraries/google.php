@@ -3,12 +3,13 @@
 
 require_once "Google/Google_Client.php";
 require_once "Google/contrib/Google_Oauth2Service.php";
-
+require_once 'Google/contrib/Google_LatitudeService.php';
 class Google {
 	
 	private $CI;
 	public $client;
 	public $oauth2;
+	public $latitude;
 
 	function __construct($config){
 		$this->CI =& get_instance();
@@ -20,6 +21,7 @@ class Google {
 			$this->client->setRedirectUri($config['redirectUri']);
 			$this->client->setDeveloperKey($config['developerKey']);
 			$this->oauth2 = new Google_Oauth2Service($this->client);
+			$this->latitude = new Google_LatitudeService($this->client);
 			$token = $this->CI->session->userdata('google_token');
 			if (!empty($token)) {
 				$this->client->setAccessToken($token);
@@ -40,6 +42,15 @@ class Google {
  		}else{
  			return NULL;
 		}
+	}
+	
+	function get_user_location(){
+		if ($this->client->getAccessToken()) {
+ 			return $this->latitude->currentLocation->get(array('granularity'=>"best"));
+ 		}else{
+ 			return NULL;
+		}
+		
 	}
 	
 	function login($code = NULL){
