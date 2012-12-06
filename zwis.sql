@@ -118,6 +118,13 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `message_content` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
+-- -----------------------------------------------------
+-- Table `zwis`.`friends`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `friends` (
+  `id_user` int(10) unsigned NOT NULL,
+  `id_friend` int(10) unsigned NOT NULL
+) ENGINE=InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
