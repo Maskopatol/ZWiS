@@ -1,6 +1,19 @@
 <html>
 <body>
-<h1><?=$heading?></h1>
+<div class='user'>
+			<div class='photo'>
+				<img src='<?=$user['photo']?>' alt='' />
+			</div>
+			<div class='data'>
+				<div class='fullname'>
+					<?=$user['name']?> <?=$user['surname']?>
+				</div>
+				<div class='email'>
+					<?=$user['email']?>
+				</div>
+			</div>
+		</div>
+		<br>
 
 <?=form_open('user/add_post');?>
 

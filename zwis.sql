@@ -37,8 +37,6 @@ CREATE  TABLE IF NOT EXISTS `locations` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
-
 -- -----------------------------------------------------
 -- Table `zwis`.`Univerity`
 -- -----------------------------------------------------
@@ -118,6 +116,13 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `message_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `message_content` text NOT NULL,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
+-- -----------------------------------------------------
+-- Table `zwis`.`friends`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `friends` (
+  `id_user` int(10) unsigned NOT NULL,
+  `id_friend` int(10) unsigned NOT NULL
 ) ENGINE=InnoDB;
 
 
