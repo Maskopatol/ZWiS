@@ -5,7 +5,7 @@
 |--------------------------------------------------------------------------
 | Skrypty JS które mają zostać dołączone domyślnie
 */
-$config["autoload_js"] = array();
+$config["autoload_js"] = array('http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js');
 /*
 |--------------------------------------------------------------------------
 | Autoload Style

@@ -24,11 +24,12 @@ ENGINE = InnoDB;
 -- Table `zwis`.`Locations`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `locations` (
-  `id_user` INT UNSIGNED NOT NULL ,
+  `id_location` INT NOT NULL ,
+  `id_user` INT NOT NULL ,
   `add_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `latitude` FLOAT NOT NULL,
   `longitude` FLOAT NOT NULL,
-  PRIMARY KEY (`id_user`) ,
+  PRIMARY KEY (`id_location`) ,
   CONSTRAINT `fk_Locations_Users`
     FOREIGN KEY (`id_user` )
     REFERENCES `mydb`.`Users` (`id_user` )

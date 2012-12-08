@@ -3,6 +3,7 @@
 <script>
 x = <?=$lat['latitude']?>;
 y = <?=$lat['longitude']?>;
-google.maps.event.addDomListener(window, 'load', initialize);
+Mapka.initialize();
+//google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 <div id="map_canvas"></div>
