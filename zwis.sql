@@ -24,19 +24,34 @@ ENGINE = InnoDB;
 -- Table `zwis`.`Locations`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `locations` (
-  `id_location` INT NOT NULL ,
+  `id_location` INT NOT NULL AUTO_INCREMENT,
   `id_user` INT NOT NULL ,
   `add_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `latitude` FLOAT NOT NULL,
-  `longitude` FLOAT NOT NULL,
-  PRIMARY KEY (`id_location`) ,
-  CONSTRAINT `fk_Locations_Users`
-    FOREIGN KEY (`id_user` )
-    REFERENCES `mydb`.`Users` (`id_user` )
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION)
+  `latitude` FLOAT( 10, 7 )  NOT NULL,
+  `longitude` FLOAT( 10, 7 )  NOT NULL,
+  PRIMARY KEY (`id_location`))
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `zwis`.`Buildings_points`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `buildings_points` (
+  `id_point` INT NOT NULL,
+  `id_building` INT NOT NULL ,
+  `latitude` FLOAT( 10, 7 )  NOT NULL,
+  `longitude` FLOAT( 10, 7 )  NOT NULL,
+  PRIMARY KEY (`id_point`,`id_building`))
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `zwis`.`Buildings`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `buildings` (
+  `id_building` INT NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `desc` text NOT NULL,
+  PRIMARY KEY (`id_building`))
+ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `zwis`.`Univerity`
 -- -----------------------------------------------------
