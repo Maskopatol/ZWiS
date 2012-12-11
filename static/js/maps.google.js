@@ -111,8 +111,9 @@ function newPoly(){
 	
 	poly[i].setMap(map);
 	polyl[i] = new Building(base_url+"saveBuilding/");
+	
 	google.maps.event.addDomListener(poly[i], 'click', function(){
-		alert('okienko z formularzem do wypełnienia');
+		alert(asd);
 	});
 
 }

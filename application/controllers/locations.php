@@ -28,8 +28,6 @@ class Locations extends CI_Controller{
 			$d['latitude'] = $data['user']['location']['latitude'];
 			$d['longitude'] = $data['user']['location']['longitude'];
 			$this->locations_model->add($d);
-		}else{
-			echo "takie same!!";
 		}
 		
 //		print_r($data);
@@ -61,18 +59,14 @@ class Locations extends CI_Controller{
 	public function test(){
 		
 		$this->load->library("google");
-	//	$this->layout->addJS("https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false");
-	//	$this->layout->addJS("test");
-		$this->layout->addJS("http://maps.google.com/maps/api/js?sensor=true");
-	//	$this->layout->addJS("http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js");
-		$this->layout->addJS("jquery-maps/ui/jquery.ui.map");
-		$this->layout->addJS("jquery-maps/ui/jquery.ui.map.extensions");
-		$this->layout->addJS("jquery-maps/ui/jquery.ui.map.overlays");
-		$this->layout->addJS("jquery-maps/ui/jquery.ui.map.rdfa");
-		$this->layout->addJS("jquery-maps/ui/jquery.ui.map.services");
+		$this->layout->addJS("https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false");
+		$this->layout->addJS("maps2.google");
 		$this->layout->addCSS("maps.google");
-		$data['user']['location'] = $this->google->get_user_location();
+
 		$data['user'] = $this->auth->user();
+		$data['user']['location'] = $this->google->get_user_location();
+		
+
 		$this->layout->view("locations/test",$data);
 	}
 	
@@ -85,6 +79,10 @@ class Locations extends CI_Controller{
 				$res[] = explode(",",$point);
 		}
 		echo "<pre>";print_r($res);echo "</pre>";
+	}
+	
+	public function testBuildings(){
+		
 	}
 	//<3
 }
