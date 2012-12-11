@@ -91,7 +91,7 @@ class User extends CI_Controller {
 	{
 		$sender_id = $this->auth->uid();
 		$user = $this->user_model->get($sender_id);
-		$a = form_open('user/add_friend'.$sender_id);
+		$a = form_open('user/add_friend/'.$sender_id);
 		$message_content = $user['name'].' '.$user['surname'].' chce dodać cię do listy swoich znajomych.
 		'.$a.'<input type="submit" value="Zatwierdź" ?>
 		<input name="redirect" type="hidden" value="<?= $this->uri->uri_string() ?>" />
