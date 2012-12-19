@@ -1,6 +1,4 @@
- 
 <?
-
 require_once "Google/Google_Client.php";
 require_once "Google/contrib/Google_Oauth2Service.php";
 require_once 'Google/contrib/Google_LatitudeService.php';

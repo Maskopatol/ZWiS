@@ -1,7 +1,5 @@
- 
 <?
-
-/**
+ /**
  * interfejs dla klas z folderu application/layouts/
  * 
  * @author Mateusz Russak

@@ -3,6 +3,7 @@
 
 <div id="map_canvas"></div>
 <script>
+
 x = <?=$user['location']['latitude']?>;
 y = <?=$user['location']['longitude']?>;
 //var m = new Mapka(x,y);

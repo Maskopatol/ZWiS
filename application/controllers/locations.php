@@ -7,7 +7,7 @@ class Locations extends CI_Controller{
 	
 	public function index(){
 		$this->load->library("google");
-		$this->layout->addJS("https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false");
+		$this->layout->addJS("https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true");
 		$this->layout->addJS("maps.google");
 		$this->layout->addCSS("maps.google");
 	//	$this->load->model("locations_model");
@@ -47,10 +47,11 @@ class Locations extends CI_Controller{
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($data));
 	}
-	public function get($id){
-		$data['user'] = $this->user_model->get($id);
-		$this->load->view('home/userinfo',$data);
+	public function user_info($id){
+		$data = $this->user_model->get($id);
+		$this->load->view("locations/user_info", $data);
 	}
+
 	
 	public function add_location(){
 		//$lat = $this->input->post("latitude");
@@ -59,12 +60,13 @@ class Locations extends CI_Controller{
 	public function test(){
 		
 		$this->load->library("google");
-		$this->layout->addJS("https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false");
+		$this->layout->addJS("https://maps.googleapis.com/maps/api/js?v=3.10&sensor=false");
 		$this->layout->addJS("maps2.google");
 		$this->layout->addCSS("maps.google");
 
 		$data['user'] = $this->auth->user();
 		$data['user']['location'] = $this->google->get_user_location();
+		
 		
 
 		$this->layout->view("locations/test",$data);
@@ -72,6 +74,7 @@ class Locations extends CI_Controller{
 	
 	public function saveBuilding(){
 		$data = $this->input->post('data');
+		echo "<pre>";print_r($_POST);echo "</pre>";
 		$data = explode("|",$data);
 		$res = array();
 		foreach($data as $point){
@@ -79,6 +82,10 @@ class Locations extends CI_Controller{
 				$res[] = explode(",",$point);
 		}
 		echo "<pre>";print_r($res);echo "</pre>";
+	}
+	
+	public function building_form(){
+		$this->load->view("locations/building_form");
 	}
 	
 	public function testBuildings(){

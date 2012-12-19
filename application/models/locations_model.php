@@ -12,10 +12,13 @@ class Locations_model extends CI_Model {
 	public $longitude;
 	
 	function getAll(){
+		$this->load->model("user_model");
 		$r = $this->db->get("locations");
 		$l = NULL;
 		foreach($r->result("Locations_model") as $location){
-			$l[$location->id_user][] = $location;
+			$u = $this->user_model->get($location->id_user);
+			$l[$location->id_user]['name'] = $u['name']." ".$u['surname'];
+			$l[$location->id_user]['locations'][] = $location;
 		}
 		return $l;
 	}

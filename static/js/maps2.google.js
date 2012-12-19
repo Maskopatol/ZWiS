@@ -1,16 +1,20 @@
 
 
-function Mapka( x , y){
+function Mapka( options){
+	this.settings = $.extend( {
+      x : '',
+      y : 'blue'
+    }, options);
 	this.map = null;
 	this.userPoint = new google.maps.LatLng(x,y);
 	
 		
 	this.map = new google.maps.Map(document.getElementById('map_canvas'), {
-		zoom: 15,
+		zoom: 14,
 		center: this.userPoint,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	});
-	
+	this.users = loadUsers("http://localhost/index.php/locations/get_json/", this.map);
 	this.markers = [];
 	this.countMarkers = 0;
 	
@@ -18,7 +22,7 @@ function Mapka( x , y){
 	
 	this.buildier = new Builder(this.map);
 	
-	var mark = this.addMarker(x,y,'Ty');
+//	var mark = this.addMarker(x,y,'Ty');
 	//google.maps.MapsEventListener.addListener(mark,"click",function(){alert('dupa!');});
 	
 	  var homeControlDiv = document.createElement('div');
@@ -84,11 +88,11 @@ Mapka.prototype.newPoly = function(){
 }*/
 
 
-function loadUsers(url){
+function loadUsers(url , map){
 	var users = [];
 	$.getJSON(url,function(data){
 		$.each(data , function(key, val){
-			users.push(new User(val[0]));
+			users.push(new User(val['locations'][0],map,val['name'] ));
 		});
 	});
 	return users;
@@ -96,15 +100,17 @@ function loadUsers(url){
 
 
 
-function User(data,map){
+function User(data,map,name){
 	this.map = map;
 	this.data = data;
+	this.name = name;
+	//alert(this.data.latitude+" "+this.data.longitude);
 	this.infowindow = null;
-	this.url = "http://jakis";
+	this.url = "http://localhost/index.php/locations/user_info/"+this.data.id_user;
 	this.marker = new google.maps.Marker({
 		position: new google.maps.LatLng(this.data.latitude,this.data.longitude),//this.userPoint,
 		map: this.map,
-		title: data.""
+		title: this.name
 	});
 	var th = this;
 	google.maps.event.addListener(this.marker, 'click', function(){
@@ -113,11 +119,11 @@ function User(data,map){
 				url: th.url,
 				success: function(d){
 					th.infowindow = new google.maps.InfoWindow({content: d});
-					infowindow.open(th.map,th.marker);
+					th.infowindow.open(th.map,th.marker);
 				}
 			});
 		}else{
-			infowindow.open(th.map,th.marker);
+			th.infowindow.open(th.map,th.marker);
 		}
 	});
 }
@@ -147,7 +153,8 @@ Builder.prototype.addPoint = function(x,y){
 function Building(builder){
 	this.builder = builder;
 	this.builder.current = this;
-	
+	this.infowindow = null;
+	this.map = this.builder.map;
 	this.poly = new google.maps.Polygon({
 		paths: [],
 		strokeColor: '#FF0000',
@@ -156,16 +163,41 @@ function Building(builder){
 		fillColor: '#FF0000',
 		fillOpacity: 0.35
 	});
-	this.poly.setMap(this.builder.map);
+	this.poly.setMap(this.map);
 	
 	this.paths = [];
 	var th = this;
-	google.maps.event.addDomListener(this.poly, 'click', function(){
-		th.builder.current = th;
+
+	google.maps.event.addListener(this.poly, 'click', function(){
+		if(th.infowindow == null){
+			$.ajax({
+				url: "http://localhost/index.php/locations/building_form/",
+				success: function(d){
+					th.infowindow = new google.maps.InfoWindow({content: d});
+					th.infowindow.setPosition( new google.maps.LatLng(th.paths[0].x,th.paths[0].y));     
+					
+					th.infowindow.addListener("domready",function(){
+						$(".building-form input[type='submit']").click(function(){
+							var data = th.save();
+							var name = $(".building-form input[name='name']").val();
+							var desc = $(".building-form textarea[name='desc']").val();
+							$.ajax({
+								url: "http://localhost/index.php/locations/saveBuilding/",
+								type: "POST",
+								data: {data : data , name: name,desc: desc},
+							});
+							alert("zapis");
+						});
+					});
+					th.infowindow.open(th.map);
+				}
+			});
+		}
 	});
-	google.maps.event.addDomListener(this.poly, 'rightclick', function(){
-		th.builder.current = th;
-	});
+	
+//	google.maps.event.addDomListener(this.poly, 'rightclick', function(){
+//		th.builder.current = th;
+//	});
 }
 Building.prototype.pushPoint = function(x,y){
 	var p = new Point(x,y);
@@ -178,11 +210,11 @@ Building.prototype.pushPoint = function(x,y){
 	var pnt = new google.maps.LatLng(x,y);
 	if(pat != null){
 		pat.push(pnt);
-		alert("a1");
+//		alert("a1");
 	}else{
 		pat = [pnt];
 		this.poly.setPath(pat);
-		alert("a2");
+//		alert("a2");
 	}
 }
 Building.prototype.save = function(saveURL){
@@ -191,11 +223,7 @@ Building.prototype.save = function(saveURL){
 	$.each(path , function(key,val){
 		dataStr += val.toString()+"|";
 	});
-	$.ajax({
-		url: saveURL,
-		type: "POST",
-		data: {data : dataStr},
-	});
+	return dataStr;
 }
 
 
