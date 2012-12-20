@@ -64,7 +64,7 @@ Mapka.prototype.createMarkerPanel = function(controlDiv, map){
         var controlText = document.createElement('div');
 		controlText.className = "gbutton";
 
-		controlText.innerHTML = '<b>Dodaj</b>';
+		controlText.innerHTML = '<b>Dodaj budynek</b>';
         controlUI.appendChild(controlText);
 		var th = this;
         google.maps.event.addDomListener(controlUI, 'click', function(){
@@ -128,12 +128,28 @@ function User(data,map,name){
 	});
 }
 
+function loadBuildings(build){
+	var b = [];
+	$.getJSON("http://localhost/index.php/locations/loadBuildings/",function(data){
+		$.each(data , function(key, val){
+			var nb = new Building(build,val.id);
+			$.each(val.points,function(k,v){
+//				alert(v.latitude +" "+v.longitude);
+				nb.pushPoint(v.latitude,v.longitude);
+			});
+			b.push(nb);
+		});
+	});
+	return b;
+}
 
 function Builder(map){
 	this.map = map;
 	this.count = 0;
-	this.buildings = [];
+	this.buildings = loadBuildings(this);
 	this.current = null;
+	
+	
 }
 
 Builder.prototype.newBuilding = function(){
@@ -150,10 +166,11 @@ Builder.prototype.addPoint = function(x,y){
 
 
 
-function Building(builder){
+function Building(builder , id = null){
 	this.builder = builder;
 	this.builder.current = this;
 	this.infowindow = null;
+	this.id = id;
 	this.map = this.builder.map;
 	this.poly = new google.maps.Polygon({
 		paths: [],
@@ -169,10 +186,11 @@ function Building(builder){
 	var th = this;
 
 	google.maps.event.addListener(this.poly, 'click', function(){
-		if(th.infowindow == null){
+		if(th.id == null && th.infowindow == null){
 			$.ajax({
-				url: "http://localhost/index.php/locations/building_form/",
+				url: "http://localhost/index.php/locations/building/"+((th.id!=null)?th.id:""),
 				success: function(d){
+					th.builder.current = null;
 					th.infowindow = new google.maps.InfoWindow({content: d});
 					th.infowindow.setPosition( new google.maps.LatLng(th.paths[0].x,th.paths[0].y));     
 					
@@ -185,13 +203,32 @@ function Building(builder){
 								url: "http://localhost/index.php/locations/saveBuilding/",
 								type: "POST",
 								data: {data : data , name: name,desc: desc},
+								success: function(d){
+									th.id = d.id;
+								}
 							});
-							alert("zapis");
+							
+							th.infowindow.close();
+							th.infowindow = null;
 						});
 					});
 					th.infowindow.open(th.map);
+					
 				}
 			});
+		}else if(th.infowindow == null){
+			$.ajax({
+				url: "http://localhost/index.php/locations/building/"+((th.id!=null)?th.id:""),
+				success: function(d){
+					th.builder.current = null;
+					th.infowindow = new google.maps.InfoWindow({content: d});
+					th.infowindow.setPosition( new google.maps.LatLng(th.paths[0].x,th.paths[0].y));   
+					th.infowindow.open(th.map);
+				}
+			});
+			
+		}else{
+			th.infowindow.open(th.map);
 		}
 	});
 	

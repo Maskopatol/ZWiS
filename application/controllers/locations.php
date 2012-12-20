@@ -6,17 +6,16 @@ class Locations extends CI_Controller{
 	}
 	
 	public function index(){
+				
 		$this->load->library("google");
-		$this->layout->addJS("https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true");
-		$this->layout->addJS("maps.google");
+		$this->layout->addJS("https://maps.googleapis.com/maps/api/js?v=3.10&sensor=false");
+		$this->layout->addJS("maps2.google");
 		$this->layout->addCSS("maps.google");
-	//	$this->load->model("locations_model");
-		$lastLocations = $this->locations_model->get($this->auth->uid());
+
 		
+		$lastLocations = $this->locations_model->get($this->auth->uid());
 		$data['user'] = $this->auth->user();
 		$data['user']['location'] = $this->google->get_user_location();
-		
-//		echo "<pre>";
 		
 		if($lastLocations[0]->latitude != $data['user']['location']['latitude'] 
 			|| $lastLocations[0]->longitude != $data['user']['location']['longitude']){
@@ -29,13 +28,9 @@ class Locations extends CI_Controller{
 			$d['longitude'] = $data['user']['location']['longitude'];
 			$this->locations_model->add($d);
 		}
-		
-//		print_r($data);
-//		echo "</pre>";
-//		exit();
-		
+
 		$this->layout->view("locations/index",$data);
-	//	print_r();
+		
 	}
 	
 	public function get_json($id = NULL){
@@ -73,19 +68,46 @@ class Locations extends CI_Controller{
 	}
 	
 	public function saveBuilding(){
+		$this->load->model("buildings_model");
 		$data = $this->input->post('data');
-		echo "<pre>";print_r($_POST);echo "</pre>";
+//		echo "<pre>";print_r($_POST);echo "</pre>";
 		$data = explode("|",$data);
 		$res = array();
 		foreach($data as $point){
 			if(!empty($point))
 				$res[] = explode(",",$point);
 		}
-		echo "<pre>";print_r($res);echo "</pre>";
+		$d['name'] = $this->input->post('name');
+		$d['desc'] = $this->input->post('desc');
+		$x = $this->buildings_model->add($d);
+		$id = $x->id_building;
+		$x->addPoints($res);
+		$zx['id'] = $id;
+		$this->output->set_content_type('application/json')->set_output(json_encode($zx));
 	}
 	
-	public function building_form(){
-		$this->load->view("locations/building_form");
+	public function loadBuildings(){
+		$this->load->model("buildings_model");
+		$b = $this->buildings_model->getAll();
+		$data = array();
+		foreach($b as $build){
+			$d['id'] = $build->id_building;
+			$d['name'] = $build->name;
+	//		$d['desc'] = $build->desc;
+			$d['points'] = $build->getPoints();
+			$data[] = $d;
+		}
+		$this->output->set_content_type('application/json')->set_output(json_encode($data));
+	}
+	
+	public function building($id = null){
+		if($id == null){
+			$this->load->view("locations/building_form");
+		}else{
+			$this->load->model("buildings_model");
+			$b = $this->buildings_model->get($id);
+			$this->load->view('locations/building_info',$b);
+		}
 	}
 	
 	public function testBuildings(){
