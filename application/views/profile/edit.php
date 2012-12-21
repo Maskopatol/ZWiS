@@ -1,6 +1,6 @@
 <div id="edit">
 	<h2>Edycja danych o użytkowniku:</h2>
-	<?=$errors?>
+	<?=$this->notices->get("profile-edit");?>
 <?=form_open('profile/update');?>
 Email:<br />
 <?=$email;?><br />

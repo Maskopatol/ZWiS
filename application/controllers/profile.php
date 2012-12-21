@@ -11,18 +11,25 @@ class Profile extends CI_Controller{
 			'name' => $this->input->post("name"),
 			'surname' => $this->input->post("surname")
 			);
-	
+		$error = 0;
 		$pass = $this->input->post("password");
 		$pass2 = $this->input->post("password_confirmation");
-		if(!empty($pass) && $pass == $pass2){
-			$data['password'] = sha1($pass);
+		
+		if(!empty($pass)){
+			if($pass != $pass2){
+				$this->notices->add('profile-edit','error','Hasła nie pasują do siebie');
+				$error++;
+			}else{
+				$data['password'] = sha1($pass);
+			}
 		}
 		
-		if($this->user_model->update($id , $data)){
+		
+		if($error == 0 && $this->user_model->update($id , $data)){
 			redirect("home/","location");
 		}else{
-			$data['errors']="coś poszło nie tak jak powinno?";
-			$this->layout->view("profile/edit",$data);
+			$this->notices->save();
+			redirect("profile/edit/","location");
 		}
 		
 	}

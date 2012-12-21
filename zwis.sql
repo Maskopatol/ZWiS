@@ -165,6 +165,18 @@ CREATE TABLE IF NOT EXISTS `friends` (
   `id_friend` int(10) unsigned NOT NULL
 ) ENGINE=InnoDB;
 
+-- -----------------------------------------------------
+-- Table `zwis`.`session`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS  `sessions` (
+	session_id varchar(40) DEFAULT '0' NOT NULL,
+	ip_address varchar(45) DEFAULT '0' NOT NULL,
+	user_agent varchar(120) NOT NULL,
+	last_activity int(10) unsigned DEFAULT 0 NOT NULL,
+	user_data text NOT NULL,
+	PRIMARY KEY (session_id),
+	KEY `last_activity_idx` (`last_activity`)
+);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

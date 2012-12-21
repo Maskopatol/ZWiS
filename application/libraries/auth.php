@@ -140,6 +140,7 @@ class auth{
 			$this->CI->google->logout();
 			$this->CI->session->unset_userdata('logged_with_google');
 		}
+		$this->CI->session->sess_destroy();
 	} 
 }
 ?>

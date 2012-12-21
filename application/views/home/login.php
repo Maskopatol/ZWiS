@@ -1,6 +1,6 @@
 <div class="login">
 <h2>Logowanie</h2>
-<?=$error?>
+<?=$this->notices->get('login');?>
 <br />
 <?=form_open('login');?>
 <?=form_label("Email:","email");?><br />

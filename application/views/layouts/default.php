@@ -1,2 +1,2 @@
 <div id="menu-bar"><?=$menubar?></div> 
-<div id="content"><?=$content?></div> 
+<div id="content"><?=$this->notices->get('global');?><?=$content?></div> 

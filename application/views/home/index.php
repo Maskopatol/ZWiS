@@ -1,3 +1,4 @@
+
 <div class='user'>
 	<div class='photo'>
 		<img src='<?=$user['photo']?>' alt='' />

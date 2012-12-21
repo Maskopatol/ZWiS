@@ -12,7 +12,7 @@ $config["autoload_js"] = array('http://ajax.googleapis.com/ajax/libs/jquery/1.7/
 |--------------------------------------------------------------------------
 | Skrypty CSS które mają zostać dołączone domyślnie
 */
-$config["autoload_css"] = array();
+$config["autoload_css"] = array('notices');
 /*
 |--------------------------------------------------------------------------
 | Default Layout

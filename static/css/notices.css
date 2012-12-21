@@ -1,0 +1,20 @@
+.notice{
+	width: 90%;
+	padding:10px;
+
+}
+
+.info{
+	background-color: #FFE2B0;
+	border:1px solid #FFBB45;
+}
+
+.error{
+	background-color: #FF9494;
+	border:1px solid #FF4040;
+}
+
+.ok{
+	background-color: #A3FFB1;
+	border:1px solid #29FF49;
+}
