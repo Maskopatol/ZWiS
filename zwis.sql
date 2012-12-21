@@ -15,6 +15,7 @@ CREATE  TABLE IF NOT EXISTS `users` (
   `name` VARCHAR(32) NULL DEFAULT 'Anonymous' ,
   `surname` VARCHAR(32) NULL DEFAULT 'Anonymous' ,
   `registration_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `static_location` INT default NULL references `locations`,
   `photo` varchar(255) null,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) ,
   PRIMARY KEY (`id_user`))

@@ -49,8 +49,8 @@ class auth{
 	}
 	
 	public function is_logged_by_google(){
-		$g = $this->CI->session->userdata('logged_with_google');
-		if(!empty($g) && $q ==true){
+		$g = $this->CI->session->userdata("logged_with_google");
+		if(!empty($g) && $g ==true){
 			return true;
 		}else{
 			return false;

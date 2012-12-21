@@ -1,10 +1,7 @@
 
 
-function Mapka( options){
-	this.settings = $.extend( {
-      x : '',
-      y : 'blue'
-    }, options);
+function Mapka( x,y){
+
 	this.map = null;
 	this.userPoint = new google.maps.LatLng(x,y);
 	
@@ -12,7 +9,8 @@ function Mapka( options){
 	this.map = new google.maps.Map(document.getElementById('map_canvas'), {
 		zoom: 14,
 		center: this.userPoint,
-		mapTypeId: google.maps.MapTypeId.ROADMAP
+		mapTypeId: google.maps.MapTypeId.ROADMAP,
+		draggableCursor: "default"
 	});
 	this.users = loadUsers("http://localhost/index.php/locations/get_json/", this.map);
 	this.markers = [];
