@@ -57,13 +57,14 @@ ENGINE = InnoDB;
 -- Table `zwis`.`Univerity`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `zwis.university` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `address` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `established` int(4) NOT NULL,
   `students` int(5) NOT NULL,
   `home_page` varchar(128) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'http://www.',
   `is_public` tinyint(1) NOT NULL,
-  PRIMARY KEY (`name`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -97,6 +98,29 @@ INSERT INTO `zwis.university` (`name`, `address`, `established`, `students`, `ho
 
 -- --------------------------------------------------------
 
+-- -----------------------------------------------------
+-- Table `zwis`.`faculty`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `faculty` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_uni` int(10) unsigned NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `info` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB; 
+
+-- -----------------------------------------------------
+-- Table `zwis`.`field_of_study`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `field_of_study` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_faculty` int(10) unsigned NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `info` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
 
 -- -----------------------------------------------------
 -- Table `zwis`.`comments`
