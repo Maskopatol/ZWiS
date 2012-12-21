@@ -5,11 +5,10 @@
 
 -obsługa błędów => biblioteka notices
 
--wydziały 
+-wydziały
 -kierunki
 -poprawić style!
--budynki <-> uczelnie
 
 -zmiana zdjęcia profilowego
 
-Masz pomysł? Napisz poniżej! 
+Masz pomysł? Napisz poniżej!

@@ -49,6 +49,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `buildings` (
   `id_building` INT NOT NULL AUTO_INCREMENT,
+  `id_university` INT default null references `university`,
   `name` varchar(255) NOT NULL,
   `desc` text NOT NULL,
   PRIMARY KEY (`id_building`))

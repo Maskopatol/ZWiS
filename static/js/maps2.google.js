@@ -4,8 +4,8 @@ function Mapka( x,y){
 
 	this.map = null;
 	this.userPoint = new google.maps.LatLng(x,y);
-	
-		
+
+
 	this.map = new google.maps.Map(document.getElementById('map_canvas'), {
 		zoom: 14,
 		center: this.userPoint,
@@ -15,20 +15,20 @@ function Mapka( x,y){
 	this.users = loadUsers("http://localhost/index.php/locations/get_json/", this.map);
 	this.markers = [];
 	this.countMarkers = 0;
-	
+
 	this.asd = "jakis tam tekst";
-	
+
 	this.buildier = new Builder(this.map);
-	
+
 //	var mark = this.addMarker(x,y,'Ty');
 	//google.maps.MapsEventListener.addListener(mark,"click",function(){alert('dupa!');});
-	
+
 	  var homeControlDiv = document.createElement('div');
 		this.createMarkerPanel(homeControlDiv, this.map);
 
         homeControlDiv.index = 1;
         this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(homeControlDiv);
-		
+
 	var th = this;
 	google.maps.event.addDomListener(this.map, 'click', function(event){
 		th.mapClickHandler(event);
@@ -38,7 +38,7 @@ function Mapka( x,y){
 Mapka.prototype.mapClickHandler = function(event){
 	var x = event.latLng.lat();
 	var y = event.latLng.lng();
-		
+
 	this.buildier.addPoint(x,y);
 }
 
@@ -70,8 +70,8 @@ Mapka.prototype.createMarkerPanel = function(controlDiv, map){
 		});
 }
 /*
-Mapka.prototype.newPoly = function(){	
-	
+Mapka.prototype.newPoly = function(){
+
 	this.polys[this.countPolys] = new google.maps.Polygon({
           paths: [],
           strokeColor: '#FF0000',
@@ -146,8 +146,8 @@ function Builder(map){
 	this.count = 0;
 	this.buildings = loadBuildings(this);
 	this.current = null;
-	
-	
+
+
 }
 
 Builder.prototype.newBuilding = function(){
@@ -179,7 +179,7 @@ function Building(builder , id = null){
 		fillOpacity: 0.35
 	});
 	this.poly.setMap(this.map);
-	
+
 	this.paths = [];
 	var th = this;
 
@@ -190,28 +190,29 @@ function Building(builder , id = null){
 				success: function(d){
 					th.builder.current = null;
 					th.infowindow = new google.maps.InfoWindow({content: d});
-					th.infowindow.setPosition( new google.maps.LatLng(th.paths[0].x,th.paths[0].y));     
-					
+					th.infowindow.setPosition( new google.maps.LatLng(th.paths[0].x,th.paths[0].y));
+
 					th.infowindow.addListener("domready",function(){
 						$(".building-form input[type='submit']").click(function(){
 							var data = th.save();
+							var uni = $(".building-form select").val();
 							var name = $(".building-form input[name='name']").val();
 							var desc = $(".building-form textarea[name='desc']").val();
 							$.ajax({
 								url: "http://localhost/index.php/locations/saveBuilding/",
 								type: "POST",
-								data: {data : data , name: name,desc: desc},
+								data: {data : data , name: name,desc: desc,uni: uni},
 								success: function(d){
 									th.id = d.id;
 								}
 							});
-							
+
 							th.infowindow.close();
 							th.infowindow = null;
 						});
 					});
 					th.infowindow.open(th.map);
-					
+
 				}
 			});
 		}else if(th.infowindow == null){
@@ -220,16 +221,16 @@ function Building(builder , id = null){
 				success: function(d){
 					th.builder.current = null;
 					th.infowindow = new google.maps.InfoWindow({content: d});
-					th.infowindow.setPosition( new google.maps.LatLng(th.paths[0].x,th.paths[0].y));   
+					th.infowindow.setPosition( new google.maps.LatLng(th.paths[0].x,th.paths[0].y));
 					th.infowindow.open(th.map);
 				}
 			});
-			
+
 		}else{
 			th.infowindow.open(th.map);
 		}
 	});
-	
+
 //	google.maps.event.addDomListener(this.poly, 'rightclick', function(){
 //		th.builder.current = th;
 //	});
