@@ -56,7 +56,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `zwis`.`Univerity`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `zwis.university` (
+CREATE TABLE IF NOT EXISTS `university` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `address` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `zwis.university` (
 -- Zrzut danych tabeli `university`
 --
 
-INSERT INTO `zwis.university` (`name`, `address`, `established`, `students`, `home_page`, `is_public`) VALUES
+INSERT INTO `university` (`name`, `address`, `established`, `students`, `home_page`, `is_public`) VALUES
 ('Akademia Muzyczna im. Karola Lipińskiego', 'pl. Jana Pawła II 2 50-043 Wrocław', 1948, 624, 'http://www.amuz.wroc.pl/', 1),
 ('Akademia Sztuk Pięknych im. Eugeniusza Gepperta we Wrocławiu', 'pl. Polski 3/4, 50-156 Wrocław', 1946, 915, 'http://www.asp.wroc.pl/', 1),
 ('Akademia Wychowania Fizycznego we Wrocławiu ', 'al. Ignacego Jana Paderewskiego 35 51-612 Wrocław', 1946, 3885, 'http://www.awf.wroc.pl/pl/index', 1),
