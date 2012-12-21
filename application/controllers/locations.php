@@ -15,20 +15,20 @@ class Locations extends CI_Controller{
 		
 		$lastLocations = $this->locations_model->get($this->auth->uid());
 		$data['user'] = $this->auth->user();
-		$data['user']['location'] = $this->google->get_user_location();
 		
-		if($lastLocations[0]->latitude != $data['user']['location']['latitude'] 
-			|| $lastLocations[0]->longitude != $data['user']['location']['longitude']){
-			
-//			print_r($lastLocations[0]);
-//			print_r($data['user']['location']);
-			
-			$d['id_user'] = $this->auth->uid();
-			$d['latitude'] = $data['user']['location']['latitude'];
-			$d['longitude'] = $data['user']['location']['longitude'];
-			$this->locations_model->add($d);
+		if($this->auth->is_logged_by_google()){
+			$data['user']['location'] = $this->google->get_user_location();
+		
+			if($lastLocations[0]->latitude != $data['user']['location']['latitude'] 
+				|| $lastLocations[0]->longitude != $data['user']['location']['longitude']){
+				
+				$d['id_user'] = $this->auth->uid();
+				$d['latitude'] = $data['user']['location']['latitude'];
+				$d['longitude'] = $data['user']['location']['longitude'];
+				$this->locations_model->add($d);
+			}
 		}
-
+		
 		$this->layout->view("locations/index",$data);
 		
 	}
@@ -52,20 +52,6 @@ class Locations extends CI_Controller{
 		//$lat = $this->input->post("latitude");
 	}
 	
-	public function test(){
-		
-		$this->load->library("google");
-		$this->layout->addJS("https://maps.googleapis.com/maps/api/js?v=3.10&sensor=false");
-		$this->layout->addJS("maps2.google");
-		$this->layout->addCSS("maps.google");
-
-		$data['user'] = $this->auth->user();
-		$data['user']['location'] = $this->google->get_user_location();
-		
-		
-
-		$this->layout->view("locations/test",$data);
-	}
 	
 	public function saveBuilding(){
 		$this->load->model("buildings_model");

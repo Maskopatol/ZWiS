@@ -47,6 +47,16 @@ class auth{
 			return false;
 		}
 	}
+	
+	public function is_logged_by_google(){
+		$g = $this->CI->session->userdata('logged_with_google');
+		if(!empty($g) && $q ==true){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	/**
 	 * uid
 	 * zwraca id użytkownika , jak użytkownik nie jest zalogowany - null
