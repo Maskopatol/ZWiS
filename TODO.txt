@@ -1,14 +1,16 @@
 -merge
 -użytkownicy <-> kierunki
 -wykładowcy
--filtrowanie pinesek na mapie
 
--obsługa błędów => biblioteka notices
+-obsługa błędów => biblioteka notices (dodałem tą bibliotekę do wyświetlania powiadomień)
 
 -wydziały
 -kierunki
 -poprawić style!
 
+
+Mateusz (teraz się tym zajmuję):
 -zmiana zdjęcia profilowego
+-filtrowanie pinesek na mapie
 
 Masz pomysł? Napisz poniżej!
