@@ -9,7 +9,7 @@ class Locations extends CI_Controller{
 
 		$this->load->library("google");
 		$this->layout->addJS("https://maps.googleapis.com/maps/api/js?v=3.10&sensor=false");
-		$this->layout->addJS("maps2.google");
+		$this->layout->addJS("http://localhost/index.php/locations/script");
 		$this->layout->addCSS("maps.google");
 
 
@@ -109,9 +109,12 @@ class Locations extends CI_Controller{
 		}
 	}
 
-	public function testBuildings(){
-
+	public function script(){
+		$this->load->library("scripts");
+		$this->output
+			->set_content_type('application/x-javascript')
+			->set_output($this->scripts->get("maps") );
 	}
-	//<3
+
 }
 ?>

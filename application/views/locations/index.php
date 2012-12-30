@@ -6,7 +6,7 @@
 $(function(){
 	x = <?=(!empty($user['location']['latitude'])?$user['location']['latitude']:51.107779)?>;
 	y = <?=(!empty($user['location']['longitude'])?$user['location']['longitude']:17.038493)?>;
-	var m = new Mapka(x,y);
+	var m = new Mcore.Mapka(x,y);
 });
 
 
