@@ -25,8 +25,8 @@ function Mapka( x,y){
 	//	var mark = this.addMarker(x,y,'Ty');
 	//google.maps.MapsEventListener.addListener(mark,"click",function(){alert('dupa!');});
 
-	var homeControlDiv = document.createElement('div');
-	this.createMarkerPanel(homeControlDiv, this.map);
+	//var homeControlDiv = document.createElement('div');
+//	this.createMarkerPanel(homeControlDiv, this.map);
 
 	homeControlDiv.index = 1;
 	this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(homeControlDiv);
