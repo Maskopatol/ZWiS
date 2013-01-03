@@ -10,7 +10,7 @@ class Locations_model extends CI_Model {
 	public $add_date;
 	public $latitude;
 	public $longitude;
-	
+
 	function getAll(){
 		$this->load->model("user_model");
 		$r = $this->db->get("locations");
@@ -22,7 +22,12 @@ class Locations_model extends CI_Model {
 		}
 		return $l;
 	}
-	
+
+	function test(){
+		$q = $this->db->query("select u.id_user, u.name , u.surname , u.static_location ,l.id_location, l.latitude , l.longitude from users u left join locations l on (IFNULL(u.static_location,(select max(lo.id_location) from locations lo where lo.id_user = u.id_user ))) = l.id_location and l.id_user = u.id_user");
+		return $q->result_array();
+	}
+
 	function get($uid){
 		$this->db->from("locations");
 		$this->db->where("id_user",$uid);
@@ -30,18 +35,18 @@ class Locations_model extends CI_Model {
 		$q = $this->db->get();
 		return $q->result("Locations_model");
 	}
-	
+
 	function add($data){
 		$this->db->insert('locations',$data);
 	}
-	
-	
+
+
 	function getBuildings(){
-		
+
 	}
-	
+
 	function addBuilding(){
-		
+
 	}
-	
+
 }

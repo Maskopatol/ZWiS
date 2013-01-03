@@ -21,16 +21,7 @@ function Mapka(options){
 	};
 	this.map = new google.maps.Map(this.mapDiv, this.mapOpts);
 
-
-	var u = new User(this,{
-		name: "Mate",
-		surname: "Russak",
-		photo: "https://lh4.googleusercontent.com/-p5GNt-Uiq98/AAAAAAAAAAI/AAAAAAAABgw/lGcVPV5MO3A/photo.jpg",
-		latitude: this.settings.x,
-		longitude: this.settings.y,
-	});
-
-
+	this.users = this.loadUsers();
 
 
 	this.buildings = this.loadBuildings();
@@ -103,7 +94,17 @@ Mapka.prototype.loadBuildings = function(){
 	return b;
 }
 
-
+Mapka.prototype.loadUsers = function(){
+	var u = [];
+	var th = this;
+	$.getJSON("http://localhost/index.php/locations/loadUsers/",function(data){
+		$.each(data , function(key, val){
+			var nu = new User(th,val);
+			u.push(nu);
+		});
+	});
+	return u;
+}
 
 
 

@@ -43,6 +43,7 @@ class Locations extends CI_Controller{
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($data));
 	}
+
 	public function user_info($id){
 		$data = $this->user_model->get($id);
 		$this->load->view("locations/user_info", $data);
@@ -51,6 +52,12 @@ class Locations extends CI_Controller{
 
 	public function add_location(){
 		//$lat = $this->input->post("latitude");
+	}
+
+	public function loadUsers(){
+		$a = $this->locations_model->test();
+	//	print_r($a);
+		$this->output->set_content_type('application/json')->set_output(json_encode($a));
 	}
 
 
@@ -117,6 +124,13 @@ class Locations extends CI_Controller{
 		$this->output
 			->set_content_type('application/x-javascript')
 			->set_output($this->scripts->get("mapsV2") );
+	}
+
+
+	public function user_photo(){
+	//	$dst = imagecreatefrompng(base_url()."static/image/frame.png");
+	//	$src = imagecreatefromjpeg("https://lh4.googleusercontent.com/-p5GNt-Uiq98/AAAAAAAAAAI/AAAAAAAABgw/lGcVPV5MO3A/photo.jpg");
+// 	//	imagecopymerge($dst, $src, 4, 4, 0, 0, 100, 47, 75);
 	}
 
 }

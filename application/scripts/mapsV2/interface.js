@@ -37,6 +37,10 @@ Interface.prototype.init = function(){
 	.append(add_button)
 	.appendTo(m);
 
+	this.context = $("<div class='contextmenu'><input id='map_setUserPoint' type='button' value='Ustaw lokację statyczną'></div>")
+	.appendTo(canvas).hide();
+
+
 
 
 	var th = this;
@@ -70,7 +74,10 @@ Interface.prototype.init = function(){
 	//	alert($(this).attr('name') + " "+ $(this).is(':checked'));
 		th.base.setVisible($(this).attr('name') , $(this).is(':checked'));
 	});
+
 }
+
+
 
 Interface.prototype.showAdmin = function(){
 	if(this.ac == 1){
