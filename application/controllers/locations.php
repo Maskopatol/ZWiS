@@ -50,9 +50,6 @@ class Locations extends CI_Controller{
 	}
 
 
-	public function add_location(){
-		//$lat = $this->input->post("latitude");
-	}
 
 	public function loadUsers(){
 		$a = $this->locations_model->test();
@@ -127,10 +124,22 @@ class Locations extends CI_Controller{
 	}
 
 
-	public function user_photo(){
-	//	$dst = imagecreatefrompng(base_url()."static/image/frame.png");
-	//	$src = imagecreatefromjpeg("https://lh4.googleusercontent.com/-p5GNt-Uiq98/AAAAAAAAAAI/AAAAAAAABgw/lGcVPV5MO3A/photo.jpg");
-// 	//	imagecopymerge($dst, $src, 4, 4, 0, 0, 100, 47, 75);
+
+	public function find($string){
+		$this->load->model('buildings_model');
+		$result = array();
+		if($this->input->post('buildings')){
+			$result['buildings'] = $this->buildings_model->find($string);
+		}
+		if($this->input->post('lecturers')){
+			$result['lecturers'] = $this->user_model->find($string , 1);
+		}
+		if($this->input->post('students')){
+			$result['students'] = $this->user_model->find($string , 0);
+		}
+		$result['users'] = array_merge($result['lecturers'],$result['students']);
+
+		$this->output->set_content_type('application/json')->set_output(json_encode($result));
 	}
 
 }

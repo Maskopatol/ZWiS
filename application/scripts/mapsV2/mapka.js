@@ -70,9 +70,21 @@ Mapka.prototype.buildingFinished = function(){
 }
 
 Mapka.prototype.setVisible = function(k,val){
-	if(k == 'buildings'){
+	if(k == 'buildings' || k == 'all'){
 		$.each(this.buildings,function(i ,v){
 			v.setVisible(val);
+		});
+	}
+	if(k == 'lecturers'|| k == 'all'){
+		$.each(this.users,function(i ,v){
+			if(v.userdata.lecturer == 1)
+				v.setVisible(val);
+		});
+	}
+	if(k == 'students' || k == 'all'){
+		$.each(this.users,function(i ,v){
+			if(v.userdata.lecturer == 0)
+				v.setVisible(val);
 		});
 	}
 }

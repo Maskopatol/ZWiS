@@ -2,12 +2,12 @@
 
 
 
-class Buildings_model extends CI_Model{    
+class Buildings_model extends CI_Model{
         public $id_building;
         public $name;
 		public $desc;
-	
-		
+
+
 	public function add($data){
 		$this->name = $data['name'];
 		$this->desc = $data['desc'];
@@ -15,7 +15,7 @@ class Buildings_model extends CI_Model{
 		$this->id_building = $this->db->insert_id();
 		return $this;
 	}
-	
+
 	public function addPoints($points,$id_building=null){
 		$this->load->model("buildings_points_model");
 		if($id_building == null){
@@ -23,7 +23,7 @@ class Buildings_model extends CI_Model{
 		}
 		return $this->buildings_points_model->add($points,$id_building);
 	}
-	
+
 	public function getPoints($id_building = null){
 		$this->load->model("buildings_points_model");
 		if($id_building == null){
@@ -45,6 +45,14 @@ class Buildings_model extends CI_Model{
 		if($q->num_rows() == 0) return null;
 		return $q->result("Buildings_model");
 	}
-	
+
+	public function find($string){
+		$q =$this->db->select("id_building")
+				 ->from("buildings")
+				 ->like('name', $string)
+				 ->get();
+		return $q->result_array();
+	}
+
 
 }

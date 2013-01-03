@@ -4,7 +4,7 @@ function User(base , userdata){
 	this.userdata = userdata;
 	this.point = new google.maps.LatLng(this.userdata.latitude,this.userdata.longitude);
 	this.infoWindow = null;
-	this.url = "http://localhost/index.php/locations/user_info/";
+	this.url = "http://localhost/index.php/locations/user_info/"+this.userdata.id_user;
 
 
 	var th = this;
@@ -33,6 +33,10 @@ User.prototype.clickHandler = function(ev){
 	}else{
 		this.infoWindow.open(th.map,th.marker);
 	}
+}
+
+User.prototype.setVisible = function(val){
+	this.marker.setVisible(val);
 }
 
 User.prototype.image = function(){

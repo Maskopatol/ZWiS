@@ -2,7 +2,14 @@ function Interface(base){
 	this.base = base;
 	this.ac = 0;
 	this.canvas = null;
+	this.findOpts = {
+		buildings: true,
+		lecturers: true,
+		students: true
+	}
+	this.debug = null;
 	this.init();
+
 }
 
 Interface.prototype.init = function(){
@@ -71,6 +78,8 @@ Interface.prototype.init = function(){
 	});
 
 	$("#map_filters_menu input[type='checkbox']").change(function(){
+
+		th.findOpts[$(this).attr('name')] = !th.findOpts[$(this).attr('name')];
 	//	alert($(this).attr('name') + " "+ $(this).is(':checked'));
 		th.base.setVisible($(this).attr('name') , $(this).is(':checked'));
 	});
@@ -112,5 +121,36 @@ Interface.prototype.hideMenu = function(){
 }
 
 Interface.prototype.find = function(string){
-	alert("szukam: "+string);
+	var result = null;
+	var th = this;
+	this.base.setVisible("all",false);
+	$.ajax({
+		url: "http://localhost/index.php/locations/find/"+string,
+		type: "POST",
+		data: {buildings : this.findOpts.buildings , lecturers: this.findOpts.lecturers , students: this.findOpts.students},
+		success: function(result){
+			th.debug = result;
+			if(th.findOpts.buildings == true){
+				$.each(th.base.buildings,function(i,v){
+					$.each(result.buildings , function(a,b){
+						if(v.id == b.id_building){
+							v.setVisible(true);
+						}
+
+					});
+				});
+			}
+			if(th.findOpts.lecturers == true || th.findOpts.students == true){
+				$.each(th.base.users,function(i,v){
+					$.each(result.users , function(a,b){
+						if(v.userdata.id_user == b.id_user){
+							v.setVisible(true);
+						}
+					});
+				});
+			}
+		}
+	});
+
+
 }

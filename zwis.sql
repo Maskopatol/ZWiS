@@ -17,6 +17,7 @@ CREATE  TABLE IF NOT EXISTS `users` (
   `registration_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   `static_location` INT default NULL references `locations`,
   `photo` varchar(255) null,
+  `lecturer` INT(1) default 0,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) ,
   PRIMARY KEY (`id_user`))
 ENGINE = InnoDB;
@@ -109,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `faculty` (
   `name` varchar(64) NOT NULL,
   `info` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB; 
+) ENGINE=InnoDB;
 
 -- -----------------------------------------------------
 -- Table `zwis`.`field_of_study`
