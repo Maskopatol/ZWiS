@@ -1,36 +1,47 @@
-function Interface(){
-	this.map = MCore.map;
+function Interface(parent){
 
-	var homeControlDiv = document.createElement('div');
-	this.createMarkerPanel(homeControlDiv, this.map);
-
-	homeControlDiv.index = 1;
-	this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(homeControlDiv);
+	this.ac = 1;
 
 
-	controlDiv.style.padding = '5px';
-	var controlUI = document.createElement('div');
-	controlUI.style.cursor = 'pointer';
-	controlUI.title = 'Kliknij aby dodać nowe miejsce';
-	controlDiv.appendChild(controlUI);
-
-	var controlText = document.createElement('div');
-	controlText.className = "gbutton";
-
-	controlText.innerHTML = '<b>Dodaj budynek</b>';
-	controlUI.appendChild(controlText);
 	var th = this;
-	google.maps.event.addDomListener(controlUI, 'click', function(){
-		th.buildier.newBuilding();
-	});
+		$('#map_admin_menu').hide();
+
+
+		$("#map_admin_button").click(function(){
+			if(ac == 1){
+				$('#map_filters_menu').fadeOut(500,function(){
+					$('#map_admin_menu').fadeIn(500);
+					th.ac = 2;
+				});
+			}else if(ac == 0){
+				$("#map_canvas").animate({width:'80%'},1000,function(){
+					th.ac = 2;
+					$('#map_admin_menu').fadeIn(500);
+				});
+			}else{
+				$(".map_menus").hide();
+				$("#map_canvas").animate({width:'100%'},1000,function(){th.ac = 0;});
+			}
+		});
+		$("#map_filters_button").click(function(){
+			if(ac == 2){
+				$('#map_admin_menu').fadeOut(500,function(){
+					$('#map_filters_menu').fadeIn(500);
+					th.ac = 1;
+					//	$("#map_canvas").animate({width:'100%'},1000,showFilters);
+				});
+
+				//	$("#map_menu").animate({width:'0%'},1000);
+			}else if(ac == 0){
+				$("#map_canvas").animate({width:'80%'},1000,function(){
+					th.ac = 1;
+					$('#map_filters_menu').fadeIn(500);
+				});
+			}else{
+				$(".map_menus").hide();
+				$("#map_canvas").animate({width:'100%'},1000,function(){th.ac = 0;});
+			}
+		});
 }
 
-Interface.prototype.initAdminPanel = function(){
-	var admDiv = document.createElement('div');
-	var addBtn = document.createElement('div');
-	admDiv.appendChild(addBtn);
-}
-
-Interface.prototype.initFilterPanel = function(){
-
-}
+Interface.prototype.admin

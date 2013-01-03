@@ -1,18 +1,5 @@
 
-function loadBuildings(build){
-	var b = [];
-	$.getJSON("http://localhost/index.php/locations/loadBuildings/",function(data){
-		$.each(data , function(key, val){
-			var nb = new Building(build,val.id);
-			$.each(val.points,function(k,v){
-				//				alert(v.latitude +" "+v.longitude);
-				nb.pushPoint(v.latitude,v.longitude);
-			});
-			b.push(nb);
-		});
-	});
-	return b;
-}
+
 
 function Building(builder , id = null){
 	this.builder = builder;

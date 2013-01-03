@@ -3,7 +3,7 @@
 function Builder(map){
 	this.map = map;
 	this.count = 0;
-	this.buildings = loadBuildings(this);
+	loadBuildings(this);
 	this.current = null;
 
 
@@ -19,4 +19,19 @@ Builder.prototype.addPoint = function(x,y){
 		this.current.pushPoint(x,y);
 		//	alert("nowy punkt");
 	}
+}
+Builder.prototype.loadBuildings = function(){
+	var b = [];
+	$.getJSON("http://localhost/index.php/locations/loadBuildings/",function(data){
+		$.each(data , function(key, val){
+			var nb = new Building(this,val.id);
+			$.each(val.points,function(k,v){
+				//				alert(v.latitude +" "+v.longitude);
+				nb.pushPoint(v.latitude,v.longitude);
+			});
+			b.push(nb);
+		});
+	});
+	this.buildings = b;
+	return b;
 }

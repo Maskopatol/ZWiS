@@ -5,13 +5,15 @@ function Mapka( x,y){
 	this.map = null;
 	this.userPoint = new google.maps.LatLng(x,y);
 
-
-	this.map = new google.maps.Map(document.getElementById('map_canvas'), {
+	this.mapDiv = document.getElementById('map_canvas');
+	//document.createElement('div');
+	this.map = new google.maps.Map(this.mapDiv, {
 		zoom: 14,
 		center: this.userPoint,
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 		draggableCursor: "default"
 	});
+	this.mapDiv.style.cssFloat = "left";
 
 	Mcore.map = this.map;
 	this.users = loadUsers("http://localhost/index.php/locations/get_json/" );
@@ -22,14 +24,16 @@ function Mapka( x,y){
 
 	this.buildier = new Builder(this.map);
 
+	this.interface = new Interface(this);
+
 	//	var mark = this.addMarker(x,y,'Ty');
 	//google.maps.MapsEventListener.addListener(mark,"click",function(){alert('dupa!');});
 
 	//var homeControlDiv = document.createElement('div');
 //	this.createMarkerPanel(homeControlDiv, this.map);
-
+/*
 	homeControlDiv.index = 1;
-	this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(homeControlDiv);
+	this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(homeControlDiv);*/
 
 	var th = this;
 	google.maps.event.addDomListener(this.map, 'click', function(event){
@@ -71,6 +75,18 @@ Mapka.prototype.createMarkerPanel = function(controlDiv, map){
 		th.buildier.newBuilding();
 	});
 }
+
+Mapka.prototype.resize = function(width){
+		$('#map_canvas').animate({
+			width: width+"px"
+		}, 1000, function() {
+			// Animation complete.
+		});
+
+
+}
+
+
 /*
  * Mapka.prototype.newPoly = function(){
  *
