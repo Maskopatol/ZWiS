@@ -1,0 +1,16 @@
+-merge
+-użytkownicy <-> kierunki
+-wykładowcy
+
+-obsługa błędów => biblioteka notices (dodałem tą bibliotekę do wyświetlania powiadomień)
+
+-wydziały
+-kierunki
+-poprawić style!
+
+
+Mateusz (teraz się tym zajmuję):
+-zmiana zdjęcia profilowego
+-filtrowanie pinesek na mapie
+
+Masz pomysł? Napisz poniżej!

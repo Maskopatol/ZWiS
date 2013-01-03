@@ -1,4 +1,4 @@
-﻿<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class User extends CI_Controller {
 
@@ -18,9 +18,10 @@ class User extends CI_Controller {
 	{
 		$id_user = $this->auth->uid();
 		$data['heading'] = $this->user_model->get($id_user)['name'].' Wall';
-		$data['posts'] = $this->Post_model->get_user_posts($id_user);
-		
-		$this->layout->view('home/wall_view', $data);
+		$data['posts'] = $this->Post_model->get_user_friend_posts($id_user);
+		$data['user'] = $this->user_model->get($id_user);
+		$this->layout->addCSS('userdata');
+		$this->layout->view('user/wall_view', $data);
 	}
 	
 	function inbox()
@@ -29,8 +30,25 @@ class User extends CI_Controller {
 		$data['heading'] = $this->user_model->get($id_user)['name'].' Inbox';
 		$data['messages'] = $this->Message_model->get_messages($id_user);
 		
-		$this->layout->view('home/inbox_view', $data);
+		$this->layout->view('user/inbox_view', $data);
 	}
+	
+	function friends()
+	{
+		$id_user = $this->auth->uid();
+		$data['heading'] = 'Twoi znajomi';
+		$data['friends'] = $this->Friend_model->get_all_friends($id_user);
+		$this->layout->addCSS('userdata');
+		$this->layout->view('user/friends_view', $data);
+	}
+	
+	function search()
+	{
+		$data['friends'] = $this->user_model->find($this->input->post('item'));
+		$data['heading'] = 'Wyniki wyszukiwania';
+		$this->layout->addCSS('userdata');
+		$this->layout->view('user/search_view', $data);
+	}	
 	/*
 		Dodawanie komentarza
 	*/	
@@ -61,22 +79,57 @@ class User extends CI_Controller {
 		$this->Message_model->add_message($_POST['message_content'], $id_user, $sender_id);
 		redirect($this->input->post('redirect'));
 	}
-	/*
-		Funkcja generuje sciane znajomego
-	*/	
-	function info()
+	
+	function add_friend($id)
 	{
-		
-		
-		$id_user = $this->uri->segment(3);
+		$id_user = $this->auth->uid();
+		$this->Friend_model->add_friend($id_user, $id);
+		redirect('/user/info/'.$id);
+	}	
+	
+	function friend_request($id_user)
+	{
+		$sender_id = $this->auth->uid();
+		$user = $this->user_model->get($sender_id);
+		$a = form_open('user/add_friend/'.$sender_id);
+		$message_content = $user['name'].' '.$user['surname'].' chce dodać cię do listy swoich znajomych.
+		'.$a.'<input type="submit" value="Zatwierdź" ?>
+		<input name="redirect" type="hidden" value="<?= $this->uri->uri_string() ?>" />
+		</form>';
+		$this->Message_model->add_message($message_content, $id_user, $sender_id);
+		redirect($this->input->post('redirect'));
+	}
+	/*
+		Funkcja generuje informacje na podstawie id
+		dla zalogowanego użytkownika lub jego znajomego - ścianę,
+		dla nieznajomego - krótkie info z opcją zaproszenia
+	*/	
+	function info($id_user)
+	{
+
 		if($id_user == $this->auth->uid()){
 			redirect("user");
-		}else{	
-			$data['heading'] = $this->user_model->get($id_user)['name'].' Wall';
+		}elseif($this->Friend_model->check_friend($id_user,$this->auth->uid())){	
+			$data['user'] = $this->user_model->get($id_user);
 			$data['posts'] = $this->Post_model->get_user_posts($id_user);	
 			$data['id_user'] = $id_user;
-			$this->layout->view('home/friend_wall_view', $data);
+			$this->layout->addCSS('userdata');
+			$this->layout->view('user/friend_wall_view', $data);
 			}
+		else{
+			$this->layout->addCSS('userdata');
+			$data['user'] = $this->user_model->get($id_user);
+			if($this->Friend_model->check_request($id_user,$this->auth->uid())){
+			$data['options'] = 'Zaproszenie czeka na  potwierdzenie';
+			}
+			elseif($this->Friend_model->check_request($this->auth->uid(),$id_user)){
+			$data['options'] = anchor('user/add_friend/'.$id_user ,'Potwierdź zaproszenie');;
+			}
+			else{
+			$data['options'] = anchor('user/friend_request/'.$id_user ,'Wyślij zaproszenie');;
+			}
+			$this->layout->view("user/profile_view",$data);
+		}
 	
 	}
 	

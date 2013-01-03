@@ -1,5 +1,6 @@
 <div class="login">
 	<h2>Rejestracja</h2>
+	<?=$this->notices->get('register');?>
 <?=form_open('register');?>
 <?=form_label("Email:","email");?><br />
 <?=form_input(array('name'=>'email' , 'value' => $this->session->flashdata('email')));?><br />

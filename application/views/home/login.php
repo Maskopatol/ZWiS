@@ -1,6 +1,6 @@
 <div class="login">
 <h2>Logowanie</h2>
-<?=$error?>
+<?=$this->notices->get('login');?>
 <br />
 <?=form_open('login');?>
 <?=form_label("Email:","email");?><br />
@@ -11,6 +11,8 @@
 <?=form_close();?>
 <br />
 <?=anchor("register","Zarejestruj się");?>
-
-<?=anchor($this->auth->google_login_link(),"Zarejestruj się przez Google");?>
+<br />
+<div class="google">
+<?=anchor($this->auth->google_login_link(),"Google");?>
+</div>
 </div>

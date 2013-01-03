@@ -1,0 +1,80 @@
+
+
+.gbutton {
+    -moz-user-select: none;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #717B87;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    color: #000000;
+    direction: ltr;
+    font-family: Arial,sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    min-width: 37px;
+    overflow: hidden;
+    padding: 1px 6px;
+    position: relative;
+    text-align: center;
+}
+
+#map_canvas{
+	width:100%;
+	float:left;
+	height:600px;
+}
+#map_menu{
+	width:20%;
+	float:left;
+	height:500px;
+}
+#map_menu div{
+
+}
+#map_top{
+
+	height:30px;
+	width:100%;
+
+}
+#map_top label{
+	float:left;
+	height:22px;
+	margin:2px;
+	padding:2px;
+
+
+}
+#map_top input{
+	border:1px solid black;
+	margin:2px;
+	height:26px;
+	padding:2px;
+	float:left;
+}
+#map_top input[type="button"]{
+	width:100px;
+
+	}
+
+	#map_top input[type="text"]{
+		width:500px;
+
+	}
+	#map_top input.b-right{
+		float:right;
+	}
+
+	.map_menus{
+		width:196px;
+		padding:5px;
+	}
+	.map_menus input[type="button"]{
+		width:184px;
+		border: 1px solid black;
+	}
+
+	#Mapka{
+		height:630px;
+		width:978px;
+		overflow:hidden;
+	}

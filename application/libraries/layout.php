@@ -1,7 +1,5 @@
- 
 <?
-
-/**
+ /**
  * interfejs dla klas z folderu application/layouts/
  * 
  * @author Mateusz Russak
@@ -74,10 +72,17 @@ class Layout{
 	 * 
 	 * @param srting
 	 */
-	 
+	 public function addJS($fname){
+		$this->JSarray[] = $fname;
+	}
+	
 	private function _createJS($fname){
-		$path = base_url()."static/js/".$fname.".js";
-		return "<script type='text/javascript' src='".$path."'></script>\n";
+		if(strpos($fname,"http://")===0 || strpos($fname,"https://")===0){
+			return "<script type='text/javascript' src='".$fname."'></script>\n";
+		}else{
+			$path = base_url()."static/js/".$fname.".js";
+			return "<script type='text/javascript' src='".$path."'></script>\n";
+		}
 	}
 	/**
 	 * dodaj Style
@@ -87,9 +92,12 @@ class Layout{
 	 *  
 	 * @param srting
 	 */
+	public function addCSS($fname){
+		$this->CSSarray[] = $fname;
+	}
 	private function _createCSS($fname){
 		$path = base_url()."static/css/".$fname.".css";
-		return "<link rel='stylesheet' type='text/css' media='all' href='".$path."' />";
+		return "<link rel='stylesheet' type='text/css' media='all' href='".$path."' />\n";
 	}
 	
 	/**

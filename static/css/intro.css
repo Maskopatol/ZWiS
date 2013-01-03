@@ -29,3 +29,21 @@ body{
 	float:right;
 	width:100px;
 }
+
+.google{
+	padding:7px;
+	width:70px;
+	margin:5px;
+	border-radius:5px;
+	background-color: #4A8BF5;
+	border:1px solid #3768B8;
+}
+.google a{
+	text-decoration: none;
+	color:white;
+	font-weight: bold;
+}
+.google:hover{
+	background-color: #417BD9;
+}
+
