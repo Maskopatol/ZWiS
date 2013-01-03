@@ -15,7 +15,7 @@ function Interface(base){
 Interface.prototype.init = function(){
 	var c = $("#"+this.base.settings.mapDivId);
 	var filters_button = $("<input class='b-right' id='map_filters_button' type='button' value='Filtry' />");
-	var admin_button = $("<input class='b-right' id='map_admin_button' type='button' value='Admin' />");
+	var admin_button = $("<input class='b-right' id='map_admin_button' type='button' value='Zarządzaj' />");
 	var search_button = $("<input type='button' value='szukaj' />");
 
 	$("<div id='map_top'></div>")
@@ -38,10 +38,13 @@ Interface.prototype.init = function(){
 	.appendTo(m);
 
 	var add_button = $("<input type='button' value='Dodaj budynek' />");
-
+	var static_button = $("<input type='button' value='Ustaw statyczną lokację' />");
+	var rm_static_button = $("<input type='button' value='Usuń statyczną lokację' />");
 	$("<div id='map_admin_menu' class='map_menus'>")
-	.append("Admin:<br />")
+	.append("Zarządzaj:<br />")
 	.append(add_button)
+	.append(static_button)
+	.append(rm_static_button)
 	.appendTo(m);
 
 	this.context = $("<div class='contextmenu'><input id='map_setUserPoint' type='button' value='Ustaw lokację statyczną'></div>")
@@ -75,6 +78,19 @@ Interface.prototype.init = function(){
 
 	add_button.click(function(){
 		th.base.newBuilding();
+	});
+
+	static_button.click(function(){
+		th.base.chooseStatic();
+	});
+
+	rm_static_button.click(function(){
+		$.ajax({
+			url: "http://localhost/index.php/locations/unset_static/",
+			success: function(){
+				document.location = "http://localhost/index.php/locations/";
+			}
+		});
 	});
 
 	$("#map_filters_menu input[type='checkbox']").change(function(){

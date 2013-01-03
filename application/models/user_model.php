@@ -56,6 +56,10 @@ class User_model extends CI_Model {
 		$result = $query->result_array();
 		return $result[0];
 	}
+
+	function set_static($id_location, $id_user){
+		$this->db->update('users', array('static_location'=>$id_location), "id_user = ".$id_user);
+	}
 	/**
 	 * create
 	 * tworzy nowego użytkownika

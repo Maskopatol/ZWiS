@@ -23,10 +23,11 @@ class Locations_model extends CI_Model {
 		return $l;
 	}
 
-	function test(){
+	function getUsers(){
 		$q = $this->db->query("select u.id_user, u.name , u.surname, u.lecturer , u.static_location ,l.id_location, l.latitude , l.longitude from users u left join locations l on (IFNULL(u.static_location,(select max(lo.id_location) from locations lo where lo.id_user = u.id_user ))) = l.id_location and l.id_user = u.id_user");
 		return $q->result_array();
 	}
+
 
 	function get($uid){
 		$this->db->from("locations");
@@ -38,6 +39,11 @@ class Locations_model extends CI_Model {
 
 	function add($data){
 		$this->db->insert('locations',$data);
+		return $this->db->insert_id();
+	}
+
+	function del($id){
+		$this->db->delete('locations',array('id_location'=>$id));
 	}
 
 

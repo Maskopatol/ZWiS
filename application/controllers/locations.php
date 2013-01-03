@@ -49,10 +49,25 @@ class Locations extends CI_Controller{
 		$this->load->view("locations/user_info", $data);
 	}
 
-
+	public function set_static(){
+		$data['id_user'] = $this->auth->uid();
+		$data['latitude'] = $this->input->post('latitude');
+		$data['longitude'] = $this->input->post('longitude');
+		$id = $this->locations_model->add($data);
+		$this->user_model->set_static($id , $this->auth->uid());
+	}
+	public function unset_static(){
+		$user = $this->auth->user();
+		if($user['static_location'] != null){
+			$this->locations_model->del($user['static_location']);
+			$this->user_model->set_static(null , $this->auth->uid());
+		}else{
+			$this->output->set_status_header('404');
+		}
+	}
 
 	public function loadUsers(){
-		$a = $this->locations_model->test();
+		$a = $this->locations_model->getUsers();
 	//	print_r($a);
 		$this->output->set_content_type('application/json')->set_output(json_encode($a));
 	}

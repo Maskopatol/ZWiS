@@ -22,7 +22,7 @@ function Mapka(options){
 	this.map = new google.maps.Map(this.mapDiv, this.mapOpts);
 
 	this.users = this.loadUsers();
-
+	this.static = false;
 
 	this.buildings = this.loadBuildings();
 	this.nowy = null;
@@ -44,6 +44,26 @@ Mapka.prototype.mapClickHandler = function(event){
 	if(this.nowy != null){
 		this.nowy.pushPoint(x,y);
 	}
+	if(this.static == true){
+		this.sendStatic(x,y);
+	}
+}
+Mapka.prototype.chooseStatic = function(){
+	this.static = true;
+	this.map.setOptions({draggableCursor:'crosshair'});
+}
+Mapka.prototype.sendStatic = function(x,y){
+	var th = this;
+	$.ajax({
+		url: "http://localhost/index.php/locations/set_static/",
+		type: "POST",
+		data: {latitude : x , longitude: y },
+		success: function(result){
+			th.static = false;
+			th.map.setOptions({draggableCursor:null});
+			document.location = "http://localhost/index.php/locations/";
+		}
+	});
 }
 
 
