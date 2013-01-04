@@ -18,15 +18,19 @@ class Locations extends CI_Controller{
 		$data['user'] = $this->auth->user();
 
 		if($this->auth->is_logged_by_google()){
-			$data['user']['location'] = $this->google->get_user_location();
+			try{
+				$data['user']['location'] = $this->google->get_user_location();
 
-			if($lastLocations[0]->latitude != $data['user']['location']['latitude']
-				|| $lastLocations[0]->longitude != $data['user']['location']['longitude']){
+				if($lastLocations[0]->latitude != $data['user']['location']['latitude']
+					|| $lastLocations[0]->longitude != $data['user']['location']['longitude']){
 
-				$d['id_user'] = $this->auth->uid();
-				$d['latitude'] = $data['user']['location']['latitude'];
-				$d['longitude'] = $data['user']['location']['longitude'];
-				$this->locations_model->add($d);
+					$d['id_user'] = $this->auth->uid();
+					$d['latitude'] = $data['user']['location']['latitude'];
+					$d['longitude'] = $data['user']['location']['longitude'];
+					$this->locations_model->add($d);
+				}
+			}catch(Exeption $e){
+
 			}
 		}
 
