@@ -8,7 +8,29 @@
 -kierunki
 -poprawić style!
 
+-poprawić błąd z lokacji
+-obrazki się przyciemniają...
+-filtry: znajomi, kierunki, wydziały?
 
+-administratorzy
+-panel zarządzania użytkownikami
 
+-informacje od użytkownika (o sobie)
 
+;
+ED.              :
+E#Wi            t#,    G:      :                                  ,;L.                                        .,
+E###G.         ;##W.   E#,    :Ef                               f#i EW:        ,ft                           ,Wt itttttttt
+E#fD#W;       :#L:WE   E#t  .GEE#t             ..       :     .E#t  E##;       t#E GEEEEEEEL         ..     i#D. fDDK##DDi         ..
+E#t t##L     .KG  ,#D  E#t j#K;E#t            ,W,     .Et    i#W,   E###t      t#E ,;;L#K;;.        ;W,    f#f      t#E           ;W,
+E#t  .E#K,   EE    ;#f E#GK#f  E#t           t##,    ,W#t   L#D.    E#fE#f     t#E    t#E          j##,  .D#i       t#E          j##,
+E#t    j##f f#.     t#iE##D.   E#t fi       L###,   j###t :K#Wfff;  E#t D#G    t#E    t#E         G###, :KW,        t#E         G###,
+E#t    :E#K::#G     GK E##Wi   E#t L#j    .E#j##,  G#fE#t i##WLLLLt E#t  f#E.  t#E    t#E       :E####, t#f         t#E       :E####,
+E#t   t##L   ;#L   LW. E#jL#D: E#t L#L   ;WW; ##,:K#i E#t  .E#L     E#t   t#K: t#E    t#E      ;W#DG##,  ;#G        t#E      ;W#DG##,
+E#t .D#W;     t#f f#:  E#t ,K#jE#tf#E:  j#E.  ##f#W,  E#t    f#E:   E#t    ;#W,t#E    t#E     j###DW##,   :KE.    jfL#E     j###DW##,
+E#tiW#G.       f#D#;   E#t   jDE###f  .D#L    ###K:   E#t     ,WW;  E#t     :K#D#E    t#E    G##i,,G##,    .DW:   :K##E    G##i,,G##,
+E#K##i          G#t    j#t     E#K,  :K#t     ##D.    E#t      .D#; E#t      .E##E    t#E  :K#K:   L##,      L#,    G#E  :K#K:   L##,
+E##D.            t      ,;     EL    ...      #G      ..         tt ..         G#E     fE ;##D.    L##,       jt     tE ;##D.    L##,
+E#t                            :              j                                 fE      : ,,,      .,,                . ,,,      .,,
+L:                                                                               ,
 Masz pomysł? Napisz poniżej!
