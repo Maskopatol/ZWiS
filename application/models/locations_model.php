@@ -24,7 +24,7 @@ class Locations_model extends CI_Model {
 	}
 
 	function getUsers(){
-		$q = $this->db->query("select u.id_user, u.name , u.surname, u.lecturer , u.static_location ,l.id_location, l.latitude , l.longitude from users u left join locations l on (IFNULL(u.static_location,(select max(lo.id_location) from locations lo where lo.id_user = u.id_user ))) = l.id_location and l.id_user = u.id_user");
+		$q = $this->db->query("select u.id_user, u.name , u.surname,u.photo, u.lecturer , u.static_location ,l.id_location, l.latitude , l.longitude from users u left join locations l on (IFNULL(u.static_location,(select max(lo.id_location) from locations lo where lo.id_user = u.id_user ))) = l.id_location and l.id_user = u.id_user");
 		return $q->result_array();
 	}
 
