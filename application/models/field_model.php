@@ -81,6 +81,23 @@ class Field_model extends CI_Model {
 		return true;
 	}
 	
-	
-	
+	function get_all_in_faculty($id)
+	{
+		$all_field = array();
+
+		$sql = "SELECT	id,
+						name,
+						info
+				FROM `field_of_study`
+				WHERE id_faculty = $id
+				ORDER BY `field_of_study`.`name` DESC";
+
+		$query = $this->db->query($sql);
+
+		foreach($query->result("field_model") as $field)
+		{
+			$all_field[] = $field;
+		}
+		return $all_field;
+	}
 }

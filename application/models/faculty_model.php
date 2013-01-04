@@ -81,6 +81,23 @@ class Faculty_model extends CI_Model {
 		return true;
 	}
 	
-	
-	
+	function get_all_in_uni($id)
+	{
+		$all_faculty = array();
+
+		$sql = "SELECT	id,
+						name,
+						info
+				FROM `faculty`
+				WHERE id_uni = $id
+				ORDER BY `faculty`.`name` DESC";
+
+		$query = $this->db->query($sql);
+
+		foreach($query->result("faculty_model") as $faculty)
+		{
+			$all_faculty[] = $faculty;
+		}
+		return $all_faculty;
+	}
 }

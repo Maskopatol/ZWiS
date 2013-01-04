@@ -63,5 +63,26 @@ class Uni_model extends CI_Model {
 	}
 	
 	
-	
+	function get_all_unis()
+	{
+		$all_unis = array();
+
+		$sql = "SELECT	name,
+						address,
+						established,
+						students,
+						home_page,
+						is_public,
+						id
+				FROM `university` 
+				ORDER BY `university`.`students` DESC";
+
+		$query = $this->db->query($sql);
+
+		foreach($query->result("uni_model") as $university)
+		{
+			$all_unis[] = $university;
+		}
+		return $all_unis;
+	}
 }
