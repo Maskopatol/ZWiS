@@ -2,7 +2,7 @@
 /**
  * auth
  * Klasa służąca do autoryzacji użytkowników
- * 
+ *
  * @author Mateusz Russak
  */
 class auth{
@@ -16,11 +16,22 @@ class auth{
 		$this->CI->load->model('user_model');
 		$this->CI->load->library('session');
 	}
-	
+	/**
+	 * is_admin
+	 * zwraca true jeżeli użytkownik jest administratorem
+	 *
+	 * @return bool
+	 */
+	public function is_admin(){
+		//if($this->usr==NULL){
+		$u = $this->user();
+		return ($u['admin']==1)?true:false;
+	}
+
 	/**
 	 * user
 	 * zwraca dane zalogowanego użytkownika
-	 * 
+	 *
 	 * jeśli użytkownik nie jest zalogowany zwraca NULL
 	 * @return array
 	 */
@@ -33,7 +44,7 @@ class auth{
 		}
 		return $this->usr;
 	}
-	
+
 	/**
 	 * is_logged
 	 * czy zalogowany?
@@ -47,7 +58,7 @@ class auth{
 			return false;
 		}
 	}
-	
+
 	public function is_logged_by_google(){
 		$g = $this->CI->session->userdata("logged_with_google");
 		if(!empty($g) && $g ==true){
@@ -56,11 +67,11 @@ class auth{
 			return false;
 		}
 	}
-	
+
 	/**
 	 * uid
 	 * zwraca id użytkownika , jak użytkownik nie jest zalogowany - null
-	 * @return int 
+	 * @return int
 	 */
 	public function uid(){
 		$uid = $this->CI->session->userdata('user_id');
@@ -70,7 +81,7 @@ class auth{
 			return null;
 		}
 	}
-	
+
 	/**
 	 * login
 	 * zalogowanie użytkownika
@@ -78,7 +89,7 @@ class auth{
 	 * @param string - hasło użytkownika
 	 * @return bool - czy logowanie powiodło się
 	 */
-	
+
 	public function login($email , $pass){
 		$user = $this->CI->user_model->get($email);
 		if($user!= null){
@@ -94,13 +105,13 @@ class auth{
 	/**
 	 * login_with_google
 	 * zalogowanie użytkownika za pomocą Google oauth2
-	 * 
+	 *
 	 * @return bool - czy logowanie powiodło się
 	 */
 	public function google_login(){
 		$this->CI->load->library("google");
 		$guser = $this->CI->google->login($_GET['code']);
-	
+
 		$user = $this->CI->user_model->get($guser['email']);
 		if($user == NULL){
 			print_r($guser);
@@ -121,14 +132,14 @@ class auth{
 			return true;
 		}
 		return false;
-		
+
 	}
-	
+
 	public function google_login_link(){
 		$this->CI->load->library("google");
 		return $this->CI->google->authUrl();
 	}
-	
+
 	/**
 	 * logout
 	 * wylogowanie użytkownika
@@ -141,6 +152,6 @@ class auth{
 			$this->CI->session->unset_userdata('logged_with_google');
 		}
 		$this->CI->session->sess_destroy();
-	} 
+	}
 }
 ?>

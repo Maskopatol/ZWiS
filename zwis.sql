@@ -18,9 +18,14 @@ CREATE  TABLE IF NOT EXISTS `users` (
   `static_location` INT default NULL references `locations`,
   `photo` varchar(255) null,
   `lecturer` INT(1) default 0,
+  `admin` INT(1) default 0,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) ,
   PRIMARY KEY (`id_user`))
 ENGINE = InnoDB;
+
+insert into `users`(`email`,`password`,`name`,`surname`,`admin`)values
+("asd@asd.asd","f10e2821bbbea527ea02200352313bc059445190","Pan","Admin",1);
+-- admin: email: "asd@asd.asd" hasło: "asd"
 
 -- -----------------------------------------------------
 -- Table `zwis`.`Locations`
