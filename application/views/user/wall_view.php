@@ -14,36 +14,38 @@
 			</div>
 		</div>
 		<br>
-
+<div class='addpost'>
 <?=form_open('user/add_post');?>
 
-<textarea rows="5" cols="20" name="post_content">
+<textarea rows="5" cols="40" name="post_content">
 Napisz posta
-</textarea>
+</textarea><br>
 <input type="submit" value="Dodaj post" ?>
 <input name="redirect" type="hidden" value="<?= $this->uri->uri_string() ?>" />
 </form>
+</div><br>
 	<?php foreach($posts as $pst): ?>
 	
 
-			<div><h3><?=anchor('user/info/'.$pst->id_user, $pst->name); ?></h3>
+			<div class ='post'><h3><?=anchor('user/info/'.$pst->id_user, $pst->name); ?></h3>
 			<?php echo $pst->post_date; ?>
 			<p><?php echo $pst->post_content; ?></p>
-			<ul>
+			<div class ='comments'>
 				<?php foreach($pst->comments as $comment): ?>
-					<li><p><?=anchor('user/info/'.$comment->id_user, $comment->name); ?></p>
-					<p><?php echo $comment->comment_content; ?></p>
-					<p><?php echo $comment->comment_date; ?></p></li>
+					<div class ='comment'>
+					<p><?=anchor('user/info/'.$comment->id_user, $comment->name); ?></p>
+					<p style="text-indent: 10%; "><?php echo $comment->comment_content; ?></p>
+					<p><?php echo $comment->comment_date; ?></p>
+					</div>
 				<?php endforeach; ?>
 			<?=form_open('user/add_comment');?>
 
-			<textarea rows="2" cols="20" name="comment_content">Komentarz</textarea>
+			<textarea rows="3" cols="40" name="comment_content">Komentarz</textarea>
 			<input type="submit" value="Dodaj komentarz" >
 			<input name="post_id" type="hidden" value="<?= $pst->post_id ?>" />
 			<input name="redirect" type="hidden" value="<?= $this->uri->uri_string() ?>" />
 			</form>
-			</ul>
-			<hr>
+			</div>
 			</div>
 	<?php endforeach; ?>
 		

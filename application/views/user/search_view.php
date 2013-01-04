@@ -1,10 +1,12 @@
 <html>
 <body>
 <h1><?=$heading?></h1>
+<div class='search'>
 <?=form_open('user/search');?>
 <input type="text" size="25" name="item" value="Szukaj...">
 <input type="submit" value="Szukaj" ?>
 </form>	
+</div>
 	<?php foreach($friends as $user): ?>
 	
 		<div class='user'>

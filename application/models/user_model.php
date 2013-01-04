@@ -60,6 +60,10 @@ class User_model extends CI_Model {
 	function set_static($id_location, $id_user){
 		$this->db->update('users', array('static_location'=>$id_location), "id_user = ".$id_user);
 	}
+
+	function set_photo($photo , $id_user){
+		$this->db->update('users', array('photo'=>$photo), "id_user = ".$id_user);
+	}
 	/**
 	 * create
 	 * tworzy nowego użytkownika

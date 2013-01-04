@@ -26,5 +26,9 @@ class Comment_model extends CI_Model
 			$this->db->set('last_com_date', $date);
 			$this->db->where('post_id =', $post_id);
 			$this->db->update('posts');
+			if($this->db->_error_number()!=0){
+				return false;
+			}
+			return true;
 		}
 }

@@ -2,6 +2,7 @@ function Interface(base){
 	this.base = base;
 	this.ac = 0;
 	this.canvas = null;
+	this.mainDiv = null;
 	this.findOpts = {
 		buildings: true,
 		lecturers: true,
@@ -14,6 +15,7 @@ function Interface(base){
 
 Interface.prototype.init = function(){
 	var c = $("#"+this.base.settings.mapDivId);
+	this.mainDiv = c[0];
 	var filters_button = $("<input class='b-right' id='map_filters_button' type='button' value='Filtry' />");
 	var admin_button = $("<input class='b-right' id='map_admin_button' type='button' value='Zarządzaj' />");
 	var search_button = $("<input type='button' value='szukaj' />");
@@ -47,6 +49,8 @@ Interface.prototype.init = function(){
 	.append(rm_static_button)
 	.appendTo(m);
 
+//	var z = $("<img id='frame' src='"+this.base.settings.userFrameUrl+"' alt=''/>").appendTo(c).hide();
+//	console.debug(z);
 	this.context = $("<div class='contextmenu'><input id='map_setUserPoint' type='button' value='Ustaw lokację statyczną'></div>")
 	.appendTo(canvas).hide();
 

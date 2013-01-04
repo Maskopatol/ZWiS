@@ -1,0 +1,21 @@
+
+.profile_desc{
+	text-align:right;
+}
+.profile_mod{
+	text-align:left;
+}
+
+.photo{
+	position:relative;
+	width:250px;
+	height:250px;
+	background-color:black;
+}
+
+.photo input{
+	left:25px;
+	width:200px;
+	top:200px;
+	position:absolute;
+}
