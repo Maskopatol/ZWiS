@@ -1,5 +1,12 @@
 <div id="edit">
 	<h2>Edycja danych o użytkowniku:</h2>
+
+	<div class='photo'>
+	<img src='<?=$photo?>' alt='' />
+	<input type="button" onclick="document.location='<?=site_url("profile/photo")?>'" value="zmień zdjęcie" />
+	</div>
+
+
 	<?=$this->notices->get("profile-edit");?>
 <?=form_open('profile/update');?>
 <table class="profile_edit">
