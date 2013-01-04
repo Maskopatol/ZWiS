@@ -41,6 +41,10 @@ body{
 	background-color:#EDF3FF;
 }
 
+.search{
+	width:350px;
+	border-radius:10px;
+}
 
 #content input{
 	border-radius:7px;
