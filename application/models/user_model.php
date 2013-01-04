@@ -62,7 +62,7 @@ class User_model extends CI_Model {
 	}
 
 	function set_photo($photo , $id_user){
-		$this->db->update('users', array('photo'=>$photo), "id_user = ".$id_user);
+		return $this->db->update('users', array('photo'=>$photo), "id_user = ".$id_user);
 	}
 	/**
 	 * create

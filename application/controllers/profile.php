@@ -21,13 +21,13 @@ class Profile extends CI_Controller{
 		$px = $d['photo_natural_width']/$d['photo_width'];
 		$py = $d['photo_natural_height']/$d['photo_height'];
 		$inew = imagecreate(250,250);
-		imagecopyresampled ( $inew , $img , 0 , 0, $d['x1']*$px , $d['y1']*$py ,250,250, $d['width']*$px , $d['height']*$px );
+		echo imagecopyresampled ( $inew , $img , 0 , 0, $d['x1']*$px , $d['y1']*$py ,250,250, $d['width']*$px , $d['height']*$px );
 		header('Content-Type: image/jpeg');
 
 		// Output the image
 		$file = "static/images/".$this->auth->uid().".jpeg";
 		imagejpeg($inew,$file);
-		$this->user_model->set_photo(base_url().$file,$this->auth->uid());
+		echo $this->user_model->set_photo(base_url().$file,$this->auth->uid());
 
 		unlink("./uploads/".$this->input->post('photo'));
 	//	$this->output->set_content_type('application/json')->set_output(json_encode($data));
