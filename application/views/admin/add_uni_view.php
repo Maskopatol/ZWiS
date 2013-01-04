@@ -9,10 +9,8 @@ Rok założenia: <input type="text" size="4" name="established"><br>
 Liczba studentów: <input type="text" size="8" name="students"><br>
 Strona WWW: <input type="text" size="35" name="home_page"><br>
 Czy publiczna(0/1): <input type="text" size="1" name="is_public"><br>
-<input type="submit" value="Dodaj">
+<input type="submit" value="Dodaj" name="submit_action">
+<input type="submit" value="Anuluj" name="submit_action">
 </form>
-<?=form_open('admin/');
-echo form_submit('back', 'Anuluj');
-form_close();?>
 </body>
 </html>

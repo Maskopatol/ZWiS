@@ -6,10 +6,8 @@
 Nazwa: <input type="text" size="35" name="name" value=<?= $field_inf['name'];?>><br>
 Info: <input type="text" size="35" name="info" value=<?= $field_inf['info'];?>><br>
 <input type="hidden" name="id_fac" value=<?=$field_inf['id_fac'];?>/>
-<input type="submit" value="Edytuj">
+<input type="submit" value="Edytuj" name="submit_action">
+<input type="submit" value="Anuluj" name="submit_action">
 </form>
-<?=form_open('admin/');
-echo form_submit('back', 'Anuluj');
-form_close();?>
 </body>
 </html>

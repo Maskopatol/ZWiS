@@ -1,14 +1,11 @@
 <html>
 <body>
 <h1><?=$heading?></h1>
-Wybierz z listy rozwijnej:<br>
 <?=form_open('admin/uni/'.$id);
 echo form_dropdown('uni',$options);?>
-<br>
-<input type="submit" value="Wybierz">
+<br><br>
+<input type="submit" value="Wybierz" name="submit_action">
+<input type="submit" value="Anuluj" name="submit_action">
 </form>
-<?=form_open('admin/');
-echo form_submit('back', 'Anuluj');
-form_close();?>
 </body>
 </html>

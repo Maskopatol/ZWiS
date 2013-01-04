@@ -21,6 +21,7 @@ class User extends CI_Controller {
 		$data['posts'] = $this->Post_model->get_user_friend_posts($id_user);
 		$data['user'] = $this->user_model->get($id_user);
 		$this->layout->addCSS('userdata');
+		$this->layout->addCSS('wall');
 		$this->layout->view('user/wall_view', $data);
 	}
 	
@@ -29,7 +30,7 @@ class User extends CI_Controller {
 		$id_user = $this->auth->uid();
 		$data['heading'] = $this->user_model->get($id_user)['name'].' Inbox';
 		$data['messages'] = $this->Message_model->get_messages($id_user);
-		
+		$this->layout->addCSS('inbox');
 		$this->layout->view('user/inbox_view', $data);
 	}
 	
@@ -56,9 +57,15 @@ class User extends CI_Controller {
 	{
 		$id_user = $this->auth->uid();
 		$post_id = $this->input->post('post_id');
-		$this->Comment_model->add_comment($_POST['comment_content'],
-					$post_id, $id_user);
-		redirect($this->input->post('redirect'));			
+		if($this->Comment_model->add_comment($_POST['comment_content'],$post_id, $id_user)){
+			$this->notices->add('global','ok',"Komentarz został dodany");
+			$this->notices->save();
+			redirect($this->input->post('redirect'));
+		}else{
+			$this->notices->add('global','ok',"Wystąpił bład - komentarz nie został dodany");
+			$this->notices->save();
+			redirect($this->input->post('redirect'));
+		}			
 	
 	}
 	/*
@@ -67,8 +74,15 @@ class User extends CI_Controller {
 	function add_post()
 	{
 		$id_user = $this->auth->uid();
-		$this->Post_model->add_post($_POST['post_content'], $id_user);
-		redirect($this->input->post('redirect'));			
+		if($this->Post_model->add_post($_POST['post_content'], $id_user)){
+			$this->notices->add('global','ok',"Post został dodany");
+			$this->notices->save();
+			redirect($this->input->post('redirect'));
+		}else{
+			$this->notices->add('global','ok',"Wystąpił bład - post nie został dodany");
+			$this->notices->save();
+			redirect($this->input->post('redirect'));
+		}		
 	
 	}
 	
@@ -76,8 +90,15 @@ class User extends CI_Controller {
 	{
 		$sender_id = $this->auth->uid();
 		$id_user = $this->input->post('id_user');
-		$this->Message_model->add_message($_POST['message_content'], $id_user, $sender_id);
-		redirect($this->input->post('redirect'));
+		if($this->Message_model->add_message($_POST['message_content'], $id_user, $sender_id)){
+			$this->notices->add('global','ok',"Wiadomość została wysłana");
+			$this->notices->save();
+			redirect($this->input->post('redirect'));
+		}else{
+			$this->notices->add('global','ok',"Wystąpił bład - wiadomość nie została wysłana");
+			$this->notices->save();
+			redirect($this->input->post('redirect'));
+		}
 	}
 	
 	function add_friend($id)
@@ -96,8 +117,15 @@ class User extends CI_Controller {
 		'.$a.'<input type="submit" value="Zatwierdź" ?>
 		<input name="redirect" type="hidden" value="<?= $this->uri->uri_string() ?>" />
 		</form>';
-		$this->Message_model->add_message($message_content, $id_user, $sender_id);
-		redirect($this->input->post('redirect'));
+		if($this->Message_model->add_message($message_content, $id_user, $sender_id)){
+			$this->notices->add('global','ok',"Zaprosznie zostało wysłane");
+			$this->notices->save();
+			redirect($this->input->post('redirect'));
+		}else{
+			$this->notices->add('global','ok',"Wystąpił bład - zaproszenie nie zostało wysłane");
+			$this->notices->save();
+			redirect($this->input->post('redirect'));
+		}
 	}
 	/*
 		Funkcja generuje informacje na podstawie id
@@ -114,6 +142,7 @@ class User extends CI_Controller {
 			$data['posts'] = $this->Post_model->get_user_posts($id_user);	
 			$data['id_user'] = $id_user;
 			$this->layout->addCSS('userdata');
+			$this->layout->addCSS('wall');
 			$this->layout->view('user/friend_wall_view', $data);
 			}
 		else{

@@ -56,5 +56,9 @@ class Message_model extends CI_Model
 			);
 
 			$this->db->insert('messages', $data);
+			if($this->db->_error_number()!=0){
+				return false;
+			}
+			return true;
 		}
 }
