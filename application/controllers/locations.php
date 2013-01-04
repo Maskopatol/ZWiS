@@ -29,7 +29,7 @@ class Locations extends CI_Controller{
 					$d['longitude'] = $data['user']['location']['longitude'];
 					$this->locations_model->add($d);
 				}
-			}catch(Exeption $e){
+			}catch(Google_ServiceException $e){
 
 			}
 		}

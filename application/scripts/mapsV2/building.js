@@ -5,8 +5,8 @@
  * -this.base nie działa...
  */
 
-function Building(base , id = null){
-
+function Building(base , id){
+	if(!id) id = null;
 	this.base = base;
 //	alert(this.base);
 	this.map = base.map;
@@ -42,7 +42,7 @@ Building.prototype.pushPoint = function(x,y){
 	}
 }
 
-Building.prototype.showInfoWindow = function(ev = null){
+Building.prototype.showInfoWindow = function(ev){
 //	alert(this.test);
 	var th = this;
 	if(th.infoWindow == null){
