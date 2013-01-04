@@ -58,12 +58,24 @@ $(function(){
 			img = $(this).contents().find("#message img");
 			img.css("width","800px").appendTo(res).imgAreaSelect({ aspectRatio: '1:1', handles: true,onSelectChange: preview, onSelectEnd:save });
 			$("<input type='button' value='Zapisz' />").appendTo(cnt).click(function(){
+				$("<div></div>").appendTo($("body"))
+					.css("position","absolute")
+					.css("width","100%")
+					.css("height","100%")
+					.css("left","0px")
+					.css("top","0px")
+					.css("opacity","0")
+					.css("background-color","black")
+					.css("z-index","1000")
+					.animate({
+						opacity: '+=0.7'
+					},1000);
 				$.ajax({
 					url: "<?=site_url("profile/rescale")?>",
 					type: "POST",
 					data: selected,
 					success: function(data){
-						document.location= "<?=site_url("home/index")?>";
+						setTimeout(function(){document.location= "<?=site_url("home/index")?>";},1000);
 					}
 				});
 			});

@@ -1,7 +1,7 @@
 <?
  /**
  * interfejs dla klas z folderu application/layouts/
- * 
+ *
  * @author Mateusz Russak
  */
 interface MY_Layout{
@@ -14,7 +14,7 @@ interface MY_Layout{
 	*/
 	function contentVar();
 	/** viewName
-	* zwraca nazwę widoku powiązanego z layoutem - folder application/views/layouts/ 
+	* zwraca nazwę widoku powiązanego z layoutem - folder application/views/layouts/
 	*/
 	function viewName();
 	/** css
@@ -41,20 +41,20 @@ class Layout{
 	private $CSSarray = array();
 	private $CSSs = array();
 	private $JSs = array();
-	
+
 	private $loaded_layouts;
-	private $layoutname = "default";
+	public $layoutname = "default";
 	private $layout = null;
-	
+
 	private $pagetitle = null;
 	private $subpagetitle =null;
-	
+
 	/**
 	 * Konstruktor
 	 */
 	function __construct($config = null){
 		$this->CI =& get_instance();
-		
+
 		if($config != null){
 			$this->JSarray = $config["autoload_js"];
 			$this->CSSarray = $config["autoload_css"];
@@ -66,16 +66,16 @@ class Layout{
 	}
 	/**
 	 * dodaj JavaScript
-	 * 
+	 *
 	 * dodaje odniesienia do skryptów javascipt w nagłówku strony
 	 * argument powinien być nazwą pliku z katalogu static/js/ bez rozszerzenia
-	 * 
+	 *
 	 * @param srting
 	 */
 	 public function addJS($fname){
 		$this->JSarray[] = $fname;
 	}
-	
+
 	private function _createJS($fname){
 		if(strpos($fname,"http://")===0 || strpos($fname,"https://")===0){
 			return "<script type='text/javascript' src='".$fname."'></script>\n";
@@ -86,10 +86,10 @@ class Layout{
 	}
 	/**
 	 * dodaj Style
-	 * 
+	 *
 	 * dodaje pliki styli - css
 	 * argument powinien być nazwą pliku z katalogu static/css/ bez rozszerzenia
-	 *  
+	 *
 	 * @param srting
 	 */
 	public function addCSS($fname){
@@ -99,7 +99,7 @@ class Layout{
 		$path = base_url()."static/css/".$fname.".css";
 		return "<link rel='stylesheet' type='text/css' media='all' href='".$path."' />\n";
 	}
-	
+
 	/**
 	 * setPageTitle
 	 * ustawia tytuł strony w pasku adresu
@@ -116,13 +116,13 @@ class Layout{
 	function setSubpageTitle($string){
 		$this->subpagetitle = $string;
 	}
-	
+
 	/**
 	 * ustaw Layout
-	 * 
+	 *
 	 * ustawia Layout na klasę z folderu application/layouts/
-	 * 
-	 * argumentem powinna być nazwa pliku bez rozszerzenia w którym znajduje się klasa implementująca MY_Layout 
+	 *
+	 * argumentem powinna być nazwa pliku bez rozszerzenia w którym znajduje się klasa implementująca MY_Layout
 	 * Uwaga:
 	 * 	klasa powinna się nazywać [nazwa pliku]_layout
 	 * @param srting
@@ -140,14 +140,14 @@ class Layout{
 	}
 	/**
 	 * widok
-	 * 
+	 *
 	 * wypełnia główny element Layoutu ładując do niego widok
-	 * 
+	 *
 	 * funkcja działą jak $this->load->view()
 	 * @param string nazwa widoku
 	 * @param array dane przekazywane do widoku
-	 * @param bool czy wynik działania funkcji ma zostać zwrócony (true) czy wypisany (false) 
-	 * 
+	 * @param bool czy wynik działania funkcji ma zostać zwrócony (true) czy wypisany (false)
+	 *
 	 */
 	function view($path , $udata = '', $ret = false){
 		$data = $this->layout->init();
@@ -158,19 +158,19 @@ class Layout{
 		foreach($this->JSarray as $js)
 			$data2['scripts'] .= $this->_createJS($js);
 		foreach($this->CSSarray as $css)
-			$data2['style_src'] .= $this->_createCSS($css);  
-		
+			$data2['style_src'] .= $this->_createCSS($css);
+
 		foreach($this->layout->js() as $js)
 			$data2['scripts'] .= $this->_createJS($js);
 		foreach($this->layout->css() as $css)
-			$data2['style_src'] .= $this->_createCSS($css);  
-		
+			$data2['style_src'] .= $this->_createCSS($css);
+
 		$data2['pagetitle'] = $this->pagetitle;
 		$data2['subpagetitle'] = $this->subpagetitle;
 
 		return $this->CI->load->view('main',$data2,$ret);
 	}
-	
-	
+
+
 }
 ?>

@@ -2,20 +2,23 @@
 
 class Admin extends CI_Controller {
 
-	function _construct()
+	function __construct()
 	{
-		parent::_construct();
-		
+		parent::__construct();
+
+		$this->layout->set('admin');
+
 	}
 
 
 	function index()
 	{
+
 		$data['heading'] = 'Admin';
 		$this->layout->addCSS('admin');
 		$this->layout->view('admin/admin_view', $data);
 	}
-	
+
 	function choose_uni($id)
 	{
 		$this->layout->addCSS('test');
@@ -33,7 +36,7 @@ class Admin extends CI_Controller {
 		$this->layout->view('admin/choose_uni_view', $data);
 		}
 	}
-	
+
 	function uni($id)
 	{
 		if($id == 1){
@@ -41,7 +44,7 @@ class Admin extends CI_Controller {
 			$this->layout->addCSS('test');
 			$this->layout->view('admin/add_uni_view', $data);
 		}
-		
+
 		$action = $this->input->post('submit_action');
 
 		if($action == 'Wybierz') {
@@ -54,7 +57,7 @@ class Admin extends CI_Controller {
 						$data['uni_inf'] = $uni_inf;
 						$this->layout->view('admin/edit_uni_view', $data);
 						break;
-				case 3:	
+				case 3:
 						$data['heading'] = 'Wprowadź dane';
 						$data['id_uni'] = $this->input->post('uni');
 						$this->layout->view('admin/add_faculty_view', $data);
@@ -80,11 +83,11 @@ class Admin extends CI_Controller {
 		}
 		} else if($action == 'Anuluj') {
 			redirect("admin/");
-		} 
-		
-		
+		}
+
+
 	}
-	
+
 	function add_uni()
 	{
 		$action = $this->input->post('submit_action');
@@ -109,11 +112,11 @@ class Admin extends CI_Controller {
 			}
 		} else if($action == 'Anuluj') {
 			redirect("admin/");
-		} 
-		
+		}
+
 
 	}
-	
+
 	function edit_uni($id)
 	{
 		$action = $this->input->post('submit_action');
@@ -138,13 +141,13 @@ class Admin extends CI_Controller {
 			}
 		} else if($action == 'Anuluj') {
 			redirect("admin/");
-		} 
-		
+		}
+
 	}
-	
+
 	function fac($id)
 	{
-		
+
 		$action = $this->input->post('submit_action');
 
 		if($action == 'Wybierz') {
@@ -161,7 +164,7 @@ class Admin extends CI_Controller {
 					$data['id_fac'] = $this->input->post('fac');
 					$this->layout->view('admin/add_field_view', $data);
 					break;
-			case 6:	
+			case 6:
 					$data['heading'] = 'Wybierz kierunek';
 					$data['id_fac'] = $this->input->post('fac');
 					$field = $this->Field_model->all_in_faculty($this->input->post('fac'));
@@ -178,11 +181,11 @@ class Admin extends CI_Controller {
 			}
 		} else if($action == 'Anuluj') {
 			redirect("admin/");
-		} 
-		
+		}
+
 	}
-		
-	
+
+
 	function add_faculty()
 	{
 		$action = $this->input->post('submit_action');
@@ -204,10 +207,10 @@ class Admin extends CI_Controller {
 			}
 		} else if($action == 'Anuluj') {
 			redirect("admin/");
-		} 
-		
+		}
+
 	}
-	
+
 	function edit_faculty($id)
 	{
 		$action = $this->input->post('submit_action');
@@ -232,7 +235,7 @@ class Admin extends CI_Controller {
 		}
 
 	}
-	
+
 	function field()
 	{
 		$action = $this->input->post('submit_action');
@@ -246,11 +249,11 @@ class Admin extends CI_Controller {
 		} else if($action == 'Anuluj') {
 			redirect("admin/");
 		}
-		
-		
+
+
 	}
-	
-	
+
+
 	function add_field()
 	{
 		$action = $this->input->post('submit_action');
@@ -272,10 +275,10 @@ class Admin extends CI_Controller {
 			}
 		} else if($action == 'Anuluj') {
 			redirect("admin/");
-		} 
+		}
 
 	}
-	
+
 	function edit_field($id)
 	{
 		$action = $this->input->post('submit_action');
@@ -298,8 +301,8 @@ class Admin extends CI_Controller {
 		} else if($action == 'Anuluj') {
 			redirect("admin/");
 		}
-		
+
 	}
-	
+
 
 }

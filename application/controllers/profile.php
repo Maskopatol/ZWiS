@@ -21,16 +21,32 @@ class Profile extends CI_Controller{
 		$px = $d['photo_natural_width']/$d['photo_width'];
 		$py = $d['photo_natural_height']/$d['photo_height'];
 		$inew = imagecreatetruecolor(250,250);
-		print_r($this->input->post());
-		echo  ($d['x1']*$px)." ".($d['y1']*$py)." ".($d['width']*$px)." ".($d['height']*$py);
-		echo imagecopyresampled ( $inew , $img , 0 , 0, $d['x1']*$px , $d['y1']*$py ,250,250, $d['width']*$px , $d['height']*$py );
+	//	print_r($this->input->post());
+		//echo  ($d['x1']*$px)." ".($d['y1']*$py)." ".($d['width']*$px)." ".($d['height']*$py);
+		if(!imagecopyresampled ( $inew , $img , 0 , 0, $d['x1']*$px , $d['y1']*$py ,250,250, $d['width']*$px , $d['height']*$py )){
+			$this->notices->add("global","error","Zmiana zdjęcia nie powiodła się.");
+			$this->notices->save();
+			unlink("./uploads/".$this->input->post('photo'));
+			return;
+		}
 	//	header('Content-Type: image/jpeg');
 
 		// Output the image
 		$file = "static/images/".$this->auth->uid().".png";
-		imagepng($inew,$file);
-		echo $this->user_model->set_photo(base_url().$file,$this->auth->uid());
-
+		if(!imagepng($inew,$file)){
+			$this->notices->add("global","error","Zmiana zdjęcia nie powiodła się.");
+			$this->notices->save();
+			unlink("./uploads/".$this->input->post('photo'));
+			return;
+		}
+		if(!$this->user_model->set_photo(base_url().$file,$this->auth->uid())){
+			$this->notices->add("global","error","Zmiana zdjęcia nie powiodła się.");
+			$this->notices->save();
+			unlink("./uploads/".$this->input->post('photo'));
+			return;
+		}
+		$this->notices->add("global","ok","Zdjęcie zmienione pomyślnie");
+		$this->notices->save();
 		unlink("./uploads/".$this->input->post('photo'));
 	//	$this->output->set_content_type('application/json')->set_output(json_encode($data));
 	}

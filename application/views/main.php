@@ -9,7 +9,7 @@
 <body>
 <div id="all">
 	<?=$body;?>
-	<div id='footer'></div>
+	<div id='footer'><?=($this->auth->is_admin() && ($this->layout->layoutname != "admin"))?anchor(site_url("admin"),"Panel administratora"):"";?></div>
 </div>
 </body>
 </html>
