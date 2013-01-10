@@ -1,6 +1,7 @@
 <?
 class Profile extends CI_Controller{
 	public function edit(){
+		$this->layout->addCSS('userdata');
 		$this->layout->addCSS("profile");
 		$id = $this->auth->uid();
 		$data = $this->user_model->get($id);
@@ -72,6 +73,10 @@ class Profile extends CI_Controller{
 			'name' => $this->input->post("name"),
 			'surname' => $this->input->post("surname")
 			);
+		$about = $this->input->post("about");
+		if( !empty( $about ) ){
+			$data['about'] = $this->input->post("about");
+		}
 		$error = 0;
 		$pass = $this->input->post("password");
 		$pass2 = $this->input->post("password_confirmation");

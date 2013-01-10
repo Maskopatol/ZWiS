@@ -19,6 +19,7 @@ CREATE  TABLE IF NOT EXISTS `users` (
   `photo` varchar(255) null,
   `lecturer` INT(1) default 0,
   `admin` INT(1) default 0,
+  `about` TEXT null,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) ,
   PRIMARY KEY (`id_user`))
 ENGINE = InnoDB;
