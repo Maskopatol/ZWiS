@@ -40,6 +40,7 @@ class User extends CI_Controller {
 		$data['heading'] = 'Twoi znajomi';
 		$data['friends'] = $this->Friend_model->get_all_friends($id_user);
 		$this->layout->addCSS('userdata');
+		$this->layout->addCSS('wall');
 		$this->layout->view('user/friends_view', $data);
 	}
 	
@@ -48,6 +49,7 @@ class User extends CI_Controller {
 		$data['friends'] = $this->user_model->find($this->input->post('item'));
 		$data['heading'] = 'Wyniki wyszukiwania';
 		$this->layout->addCSS('userdata');
+		$this->layout->addCSS('wall');
 		$this->layout->view('user/search_view', $data);
 	}	
 	/*

@@ -96,7 +96,7 @@ class Post_model extends CI_Model
 								comments.id_user
 						FROM comments LEFT JOIN users ON comments.id_user = users.id_user
 						WHERE post_id = ?
-						ORDER BY comments.comment_date DESC";
+						ORDER BY comments.comment_date ASC";
                 $query = $this->db->query($sql, array($post_id));
                 $comments = array();
                 foreach($query->result("Comment_model") as $comment)

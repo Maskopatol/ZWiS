@@ -5,7 +5,7 @@
 	<div class='data'>
 	<table cellpadding="2" border="1">
 		<tr align="center" valign="middle">
-		<td>Nazwa wydzia≥u</td>
+		<td>Nazwa wydzia≈Çu</td>
 		<td>Opis</td>
 		</tr>
 		<?php foreach($faculty_list as $faculty): ?>

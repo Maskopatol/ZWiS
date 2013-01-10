@@ -7,6 +7,8 @@ class Admin extends CI_Controller {
 		parent::__construct();
 
 		$this->layout->set('admin');
+		if(!$this->auth->is_admin())
+			redirect("home/");
 
 	}
 
@@ -17,6 +19,58 @@ class Admin extends CI_Controller {
 		$data['heading'] = 'Admin';
 		$this->layout->addCSS('admin');
 		$this->layout->view('admin/admin_view', $data);
+	}
+	
+	function users()
+	{
+
+		$data['heading'] = 'Szukaj';
+		$this->layout->addCSS('admin');
+		$this->layout->addCSS('wall');
+		$this->layout->view('admin/users_view', $data);
+	}
+	
+	function search()
+	{
+		$data['friends'] = $this->user_model->find($this->input->post('item'));
+		$this->layout->addCSS('userdata');
+		$this->layout->addCSS('wall');
+		$this->layout->view('admin/search_view', $data);
+	}
+
+	function user($id)
+	{
+		$data['user'] = $this->user_model->get($id);
+		$this->layout->addCSS('userdata');
+		$this->layout->addCSS('test');
+		$this->layout->view('admin/edit_user_view', $data);
+	}	
+	
+	function edit_user($id)
+	{
+		$action = $this->input->post('submit_action');
+
+		if($action == 'Edytuj') {
+			$data = array(
+			'name' => $this->input->post("name"),
+			'surname' => $this->input->post("surname"),
+			'email' => $this->input->post("email"),
+			'lecturer' => $this->input->post("lecturer"),
+			'admin' => $this->input->post("admin")
+			);
+			if($this->user_model->update($id, $data)){
+				$this->notices->add('global','ok',"Edycja zakończona pomyślnie");
+				$this->notices->save();
+				redirect("admin/");
+			}else{
+				$this->notices->add('global','error',"Edycja nie powiodła się");
+				$this->notices->save();
+				redirect("admin/");
+			}
+		} else if($action == 'Anuluj') {
+			redirect("admin/users");
+		}
+
 	}
 
 	function choose_uni($id)
