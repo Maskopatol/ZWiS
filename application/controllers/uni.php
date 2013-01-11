@@ -32,9 +32,16 @@ class Uni extends CI_Controller
 	function add_fos($id)
 	{
 		$id_user = $this->auth->uid();
-		$this->Friend_model->add_friend($id_user, $id);
-		redirect('/user/info/'.$id);
-	}	
+		if($this->Student_model->set_student($id_user, $id)){
+			$this->notices->add('global','ok',"Sukces - kierunek dodany");
+			$this->notices->save();
+		}
+		else{
+			$this->notices->add('global','ok',"Wystąpił bład - spróbuj ponownie");
+			$this->notices->save();
+		}
+		redirect("uni/index");
+	}
 }
 
 ?>

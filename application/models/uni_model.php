@@ -85,4 +85,5 @@ class Uni_model extends CI_Model {
 		}
 		return $all_unis;
 	}
+	
 }

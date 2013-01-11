@@ -15,7 +15,7 @@
 				<tr align="center" valign="middle">
 				<td><?=$field->name?></td>
 				<td><?=$field->info?></td>
-				<td><?=anchor('uni/field/'.$faculty->id,'Tu studiuję!');?></td>
+				<td><?=anchor('/uni/add_fos/'.$field->id,'Dodaj się');?></td>
 				</tr>
 			</tbody>
 		<?endforeach; ?>
