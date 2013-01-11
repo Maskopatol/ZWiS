@@ -7,6 +7,7 @@ class Uni extends CI_Controller
 		$this->layout->setSubpageTitle("Lista wrocławskich uczelni");
 		$data['heading'] = 'Wrocławskie uczelnie';
 		$data['uni_list'] = $this->Uni_model->get_all_unis();
+		$this->layout->addCSS('uni');
 		$this->layout->view('uni/index', $data);
 	}
 	
@@ -15,16 +16,25 @@ class Uni extends CI_Controller
 		$this->layout->setSubpageTitle("Wydziały uczelni");
 		$data['heading'] = 'Wydziały';
 		$data['faculty_list'] = $this->Faculty_model->get_all_in_uni($id);
+		$this->layout->addCSS('uni');
 		$this->layout->view('uni/faculty', $data);
 	}
 	
 	function field($id)
 	{
 		$this->layout->setSubpageTitle("Kierunki wydziału");
-		$data['heading'] = 'Wydziały';
+		$data['heading'] = 'Kierunki';
 		$data['field_list'] = $this->Field_model->get_all_in_faculty($id);
+		$this->layout->addCSS('uni');
 		$this->layout->view('uni/field', $data);
 	}
+	
+	function add_fos($id)
+	{
+		$id_user = $this->auth->uid();
+		$this->Friend_model->add_friend($id_user, $id);
+		redirect('/user/info/'.$id);
+	}	
 }
 
 ?>

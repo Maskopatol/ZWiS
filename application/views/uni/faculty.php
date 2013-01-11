@@ -1,13 +1,15 @@
-<html>
-<body>
 <h1><?=$heading?></h1>
 <div class='faculty'>
 	<div class='data'>
-	<table cellpadding="2" border="1">
-		<tr align="center" valign="middle">
-		<td>Nazwa wydziału</td>
-		<td>Opis</td>
-		</tr>
+	<table>
+		<thead>
+			<tr align="center" valign="middle">
+			<td>Nazwa wydziału</td>
+			<td>Opis</td>
+			<td></td>
+			</tr>
+		</thead>
+		<tbody>
 		<?php foreach($faculty_list as $faculty): ?>
 	
 			<tr align="center" valign="middle">
@@ -17,9 +19,12 @@
 			</tr>
 			
 		<?endforeach; ?>
-		
+		</tbody>
+		<tfoot>
+			<tr align="right">
+			<td colspan="3"><a href="javascript:history.back()">Powrót do uczelni</a></td>
+			</tr>
+		</tfoot>
 		</table> 
 	</div>
 </div>
-</body>
-</html>

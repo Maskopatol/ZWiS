@@ -1,0 +1,66 @@
+body{
+	background-color: #91A7DB;
+	
+}
+#all{
+	
+	margin: 0px auto;
+	margin-top:70px;
+	width:400px;
+	background-color:white;
+	border: 1px solid #344878;
+	border-radius:10px;
+}
+
+
+table thead {
+
+	background: #000;
+	color: #fff;
+}
+
+table tbody {
+
+	background: transparent;
+	color: #000;
+}
+
+table tbody a:link, table tbody a:visited {
+
+	color: #525252;
+	text-decoration: underline;
+}
+
+table tbody tr:nth-child(even) {
+	background: #EBEBEB;
+}
+
+table tbody tr:nth-child(odd) {
+	background: #D6D6D6;
+}
+
+table tbody tr:hover {
+	background: #;
+}
+
+table tbody a:hover {
+	color: #525252;
+	text-decoration: none;
+}
+
+table tfoot {
+	background: #525252;
+	color: #fff;
+	text-align: right;
+}
+table tfoot a:link, table tfoot a:visited {
+	color: #fff;
+	text-decoration: underline;
+}
+table tfoot a:hover {
+	color: #fff;
+	text-decoration: none;
+}
+
+}
+

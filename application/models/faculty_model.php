@@ -90,7 +90,7 @@ class Faculty_model extends CI_Model {
 						info
 				FROM `faculty`
 				WHERE id_uni = $id
-				ORDER BY `faculty`.`name` DESC";
+				ORDER BY `faculty`.`name` ASC";
 
 		$query = $this->db->query($sql);
 
